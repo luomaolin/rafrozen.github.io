@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
 <head>
 
     <meta charset="utf-8">
@@ -15,10 +13,13 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href=" http://localhost:4000/assets/libs/css/main.css">
+    <!-- feed.xml -->
+    <link rel="alternate" type="application/rss+xml" title="loyxin" href="http://localhost:4000/feed.xml" />
+
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="http://localhost:4000/assets/libs/css/bootstrap.min.css">
-   
+
     <!-- Pygments Github CSS -->
     <link rel="stylesheet" href="http://localhost:4000/assets/libs/css/syntax.css">
 
@@ -38,8 +39,23 @@
 
 </head>
 
+<head>
 <link rel="shortcut icon" href="/favicon.ico">
 </head>
+
+
+<!--Analytics-->
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-96907078-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 
 <body>
 
@@ -82,14 +98,6 @@
                 </li>
                 
                 <li>
-                    <a href="/about/">About</a>
-                </li>
-                
-                <li>
-                    <a href="/writing/">Writing</a>
-                </li>
-                
-                <li>
                     <a href="/index.html">loyxin Blog</a>
                 </li>
                 
@@ -99,6 +107,14 @@
                 
                 <li>
                     <a href="/search/">Search</a>
+                </li>
+                
+                <li>
+                    <a href="/writing/">Writing</a>
+                </li>
+                
+                <li>
+                    <a href="/about/">About</a>
                 </li>
                  ...
 
@@ -111,12 +127,12 @@
     <!-- /.container -->
 </nav>
 
-
+<main role="main" class="content">
     <html>
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        
+
         <meta name="viewport" content="width=device-width">
 
 <link rel="stylesheet" href="/assets/libs/css/galleries.css">
@@ -124,7 +140,7 @@
 
     </head>
     <body>
- 
+
 
 
   <!-- Footnotes CSS-->
@@ -159,9 +175,9 @@
 
 
           
-     
+
                            &sim; Filed in &nbsp;:&nbsp;<span class="post-tags"><a href="/writing/category/cat01/" data-toggle="tooltip" title="Other posts filed in cat01 category" rel="tag" style="text-shadow: 2px 2px #000000;">cat01</a>&nbsp;&bull;&nbsp;<a href="/writing/category/cat02/" data-toggle="tooltip" title="Other posts filed in cat02 category" rel="tag" style="text-shadow: 2px 2px #000000;">cat02</a></span>
-                        
+
    </span>
 
                 </div>
@@ -338,7 +354,7 @@ But let's throw in a &lt;b&gt;tag&lt;/b&gt;.
 
 <h3 id="image">Image</h3>
 
-<p><img src="http://octodex.github.com/images/spectrocat.png" alt="Spectrocat" /></p>
+<p><img src="http://tse1.mm.bing.net/th?id=OIP.Mp2bUD7_6ZG418SbUnprpwCKDI&amp;pid=15.1" alt="Spectrocat" /></p>
 
 <p><br /></p>
 
@@ -403,7 +419,7 @@ color: #223333;font-size:1em;">
 	        <img src="/assets/owner/avatar.jpg" alt="loyxin's photo" itemprop="image" class="post-avatar img-circle img-responsive"/>    
 	    <h4 class="bordered-bottom vcard author">By <span itemprop="name" class="fn"><a href="/about" title="About loyxin" itemprop="url">loyxin</a></span></h4>
 	    <p>Waiting For You</p>
-</div> 
+</div>
 <div id="disqus_thread"></div>
 <script>
         var disqus_config = function () {
@@ -422,7 +438,7 @@ color: #223333;font-size:1em;">
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
 
-                        
+
                 <br>
 
                 <ul class="pager">
@@ -437,6 +453,30 @@ color: #223333;font-size:1em;">
             </div>
         </div>
     </div>
+<!--comments-->
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://rafrozen.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                                                                                         
+                                                                                         
 </article>
 
 <br>
@@ -447,20 +487,67 @@ color: #223333;font-size:1em;">
 </body>
 </html>
 
-
-
-
-
+</main>
     <!-- Footer -->
 <footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p class="copyright text-muted">loyxin &copy;  2017</p>
+    <div class="container-fluid">
+        <div class="row-fluid">
+          <div class="col-lg-2  col-md-2 col-sm-2  col-xs-2 ">
+                  
+  <ul class="faul" style="list-style-type:none">
+                      
+
+
+                    
+
+                    
+                    
+<li list-style-typenone>
+
+   <a href="https://github.com/rafrozen" data-toggle="tooltip" title="Github" style="
+color:#877070;font-size:.25em;text-decoration:none;">
+         <span class="fa-stack fa-lg">
+            <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                     </span>
+                        </a>
+    <a href="mailto:luox46@mail2.sysu.edu.cn" data-toggle="tooltip" target="_blank" title="Email" style="color:#877070;font-size:.25em;text-decoration:none;">
+              <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-envelope-o fa-stack-1x fa-inverse"></i></span>
+                  </a>
+                    </li>
+                   
+                   
+
+                   
+
+
+
+
+
+
+
+
+                  
+
+
+                              </ul>
+
+        </div>
+            <div class="col-lg-10  col-md-10 col-sm-10  col-xs-10">
+                <p class="copyright text-muted">loyxin &copy;  2017  <a aria-label="Use the RSS to get updated" title="Register for my RSS" target="_blank" href="/feed.xml">RSS</a></p>
+
+<center><h6><p>Contact me <a href="https://github.com/rafrozen">Github</a> Email: luox46@mail2.sysu.cn  </p></h6></center>
+
+
 <center><h6><p>Powered by <a href="https://github.com/">Github</a> - <a href="https://github.com/jekyll/">Jekyll</a> - <a href="https://github.com/madforjekyll/madforjekyll.github.io">MAD4Jekyll</a>.</p></h6></center>
-            </div>
+
+         </div>
+
         </div>
     </div>
+
 </footer>
 
 <!-- jQuery -->

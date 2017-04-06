@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>loyxin</title>
+    <description>waiting for you</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 07 Apr 2017 13:36:47 +0800</pubDate>
+    <lastBuildDate>Fri, 07 Apr 2017 13:36:47 +0800</lastBuildDate>
+    <generator>Jekyll v3.4.0</generator>
+    
+      <item>
+        <title>Markdown Cheatsheet</title>
+        <description>&lt;blockquote&gt; &lt;p&gt;This is Markdown Cheatsheet for &lt;strong&gt;MAD4Jekyll&lt;/strong&gt;, this Jekyll theme. Please check the raw content of this file for the markdown usage.&lt;/p&gt; &lt;/blockquote&gt; &lt;h2 id=&quot;typography-elements&quot;&gt;Typography Elements&lt;/h2&gt; &lt;p&gt;This is a paragraph. &lt;strong&gt;This text is bolded.&lt;/strong&gt; This text is normal! &lt;em&gt;This text is italic.&lt;/em&gt; We can also &lt;strong&gt;&lt;em&gt;combine&lt;/em&gt;&lt;/strong&gt; them. A highlighted code looks like &lt;code class=&quot;highlighter-rouge&quot;&gt;ThisIsMyCode()&lt;/code&gt;. This text is a &lt;a href=&quot;#&quot;&gt;hyperlink&lt;/a&gt; or &lt;a href=&quot;http://www.example.com&quot;&gt;http://www.example.com&lt;/a&gt;.&lt;/p&gt; &lt;hr /&gt; &lt;h2 id=&quot;headings-h1-to-h6&quot;&gt;Headings H1 to H6&lt;/h2&gt; &lt;h1 id=&quot;h1-heading&quot;&gt;H1 Heading&lt;/h1&gt; &lt;h2 id=&quot;h2-heading&quot;&gt;H2 Heading&lt;/h2&gt; &lt;h3 id=&quot;h3-heading&quot;&gt;H3 Heading&lt;/h3&gt; &lt;h4 id=&quot;h4-heading&quot;&gt;H4 Heading&lt;/h4&gt; &lt;h5 id=&quot;h5-heading&quot;&gt;H5 Heading&lt;/h5&gt; &lt;h6 id=&quot;h6-heading&quot;&gt;H6 Heading&lt;/h6&gt; &lt;hr /&gt; &lt;h2 id=&quot;footnote&quot;&gt;Footnote&lt;/h2&gt; &lt;p&gt;If you have some text that you want...</description>
+        <pubDate>Wed, 25 Nov 2015 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/writing/markdown-cheatsheet/</link>
+        <guid isPermaLink="true">http://localhost:4000/writing/markdown-cheatsheet/</guid>
+        
+        <category>tag-name-one</category>
+        
+        <category>tag-name-two</category>
+        
+        
+        <category>cat01</category>
+        
+        <category>cat02</category>
+        
+      </item>
+    
+      <item>
+        <title>Multiple Galleries</title>
+        <description>&lt;p&gt; Content of your post HERE &lt;/p&gt; &lt;p&gt; Add as many paragraphs amongst your galleries as you want. &lt;/p&gt; &lt;div class=&quot;gallery masonry-gallery&quot;&gt; &lt;figure class=&quot;gallery-item&quot;&gt; &lt;header class=&quot;gallery-icon&quot;&gt; &lt;a href=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg1.jpg&quot; class=&quot;popup&quot; title=&quot;IMAGE TITLE&quot; data-caption=&quot;© MADness&quot;&gt; &lt;img src=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg1.jpg&quot; /&gt;&lt;/a&gt; &lt;/header&gt; &lt;figcaption class=&quot;gallery-caption&quot;&gt; &lt;div class=&quot;entry-summary&quot; id=&quot;IMAGE TITLE&quot;&gt; &lt;h5 style=&quot;text-shadow: 2px 2px #000000;&quot;&gt;IMAGE TITLE&lt;/h5&gt; &lt;h6 style=&quot;text-shadow: 2px 2px #000000;&quot;&gt;© MADness&lt;/h6&gt; &lt;/div&gt; &lt;/figcaption&gt; &lt;/figure&gt; &lt;figure class=&quot;gallery-item&quot;&gt; &lt;header class=&quot;gallery-icon&quot;&gt; &lt;a href=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg2.jpg&quot; class=&quot;popup&quot; title=&quot;IMAGE TITLE&quot; data-caption=&quot;© MADness&quot;&gt; &lt;img src=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg2.jpg&quot; /&gt;&lt;/a&gt; &lt;/header&gt; &lt;figcaption class=&quot;gallery-caption&quot;&gt; &lt;div class=&quot;entry-summary&quot; id=&quot;IMAGE TITLE&quot;&gt; &lt;h5 style=&quot;text-shadow: 2px 2px #000000;&quot;&gt;IMAGE TITLE&lt;/h5&gt; &lt;h6 style=&quot;text-shadow: 2px 2px #000000;&quot;&gt;© MADness&lt;/h6&gt; &lt;/div&gt; &lt;/figcaption&gt; &lt;/figure&gt; &lt;figure class=&quot;gallery-item&quot;&gt; &lt;header class=&quot;gallery-icon&quot;&gt; &lt;a href=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg3.jpg&quot;...</description>
+        <pubDate>Mon, 23 Nov 2015 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/writing/multiple-galleries/</link>
+        <guid isPermaLink="true">http://localhost:4000/writing/multiple-galleries/</guid>
+        
+        <category>tag-name-one</category>
+        
+        <category>tag-name-two</category>
+        
+        
+        <category>cat03</category>
+        
+      </item>
+    
+  </channel>
+</rss>
