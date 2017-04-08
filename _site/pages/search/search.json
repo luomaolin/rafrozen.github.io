@@ -1,15 +1,6 @@
 [
   
     {
-      "title"    : "Markdown Cheatsheet",
-      "category" : "",
-      "tags"     : "tag-name-one, tag-name-two",
-      "url"      : "/writing/markdown-cheatsheet/",
-      "date"     : "2015-11-25 20:00:00 +0800",
-      "content"   : "[\n  {% for post in site.posts %}\n    {\n      \"title\"    : \"{{ post.title | escape }}\",\n      \"category\" : \"{{ post.category }}\",\n      \"tags\"     : \"{{ post.tags | join: ', ' }}\",\n      \"url\"      : \"{{ site.baseurl }}{{ post.url }}\",\n      \"date\"     : \"{{ post.date }}\",\n      \"content\"   : {{ page.content | jsonify }}\n    } {% unless forloop.last %},{% endunless %}\n  {% endfor %}\n  ,\n  {% for page in site.pages %}\n   {\n     {% if page.title != nil %}\n        \"title\"    : \"{{ page.title | escape }}\",\n        \"category\" : \"{{ page.category }}\",\n        \"tags\"     : \"{{ page.tags | join: ', ' }}\",\n        \"url\"      : \"{{ site.baseurl }}{{ page.url }}\",\n        \"date\"     : \"{{ page.date }}\",\n        \"content\"   : {{ page.content | jsonify }}\n     {% endif %}\n   } {% unless forloop.last %},{% endunless %}\n  {% endfor %}\n]"
-    } ,
-  
-    {
       "title"    : "Multiple Galleries",
       "category" : "cat03",
       "tags"     : "tag-name-one, tag-name-two",
@@ -22,24 +13,23 @@
   
    {
      
+        "title"    : "Markdown Cheatsheet",
+        "category" : "",
+        "tags"     : "tag-name-one, tag-name-two",
+        "url"      : "/stored/2015-11-23-markdown/",
+        "date"     : "2015-11-25 20:00:00 +0800",
+        "content"   : "<blockquote>\n  <p>This is Markdown Cheatsheet for <strong>MAD4Jekyll</strong>, this Jekyll theme. Please check the raw content of this file for the markdown usage.</p>\n</blockquote>\n\n<h2 id=\"typography-elements\">Typography Elements</h2>\n\n<p>This is a paragraph. <strong>This text is bolded.</strong> This text is normal! <em>This text is italic.</em> We can  also <strong><em>combine</em></strong> them. A highlighted code looks like <code class=\"highlighter-rouge\">ThisIsMyCode()</code>. This text is a <a href=\"#\">hyperlink</a> or <a href=\"http://www.example.com\">http://www.example.com</a>.</p>\n\n<hr />\n\n<h2 id=\"headings-h1-to-h6\">Headings H1 to H6</h2>\n\n<h1 id=\"h1-heading\">H1 Heading</h1>\n\n<h2 id=\"h2-heading\">H2 Heading</h2>\n\n<h3 id=\"h3-heading\">H3 Heading</h3>\n\n<h4 id=\"h4-heading\">H4 Heading</h4>\n\n<h5 id=\"h5-heading\">H5 Heading</h5>\n\n<h6 id=\"h6-heading\">H6 Heading</h6>\n\n<hr />\n\n<h2 id=\"footnote\">Footnote</h2>\n\n<p>If you have some text that you want to refer with a footnote, do as follows. This is an example for the footnote number one <sup id=\"fnref:1\"><a href=\"#fn:1\" class=\"footnote\">1</a></sup>. Add more footnotes, with link. <sup id=\"fnref:2\"><a href=\"#fn:2\" class=\"footnote\">2</a></sup></p>\n\n<hr />\n\n<h2 id=\"blockquote\">Blockquote</h2>\n\n<blockquote>\n  <p>The roots of education are bitter, but the fruit is sweet. –Aristotle</p>\n</blockquote>\n\n<hr />\n\n<h2 id=\"list-items\">List Items</h2>\n\n<ol>\n  <li>First order list item</li>\n  <li>Second item</li>\n</ol>\n\n<ul>\n  <li>Unordered list can use asterisks</li>\n  <li>Or minuses</li>\n  <li>Or pluses</li>\n</ul>\n\n<hr />\n\n<h2 id=\"code-blocks\">Code Blocks</h2>\n\n<div class=\"language-javascript highlighter-rouge\"><pre class=\"highlight\"><code><span class=\"kd\">var</span> <span class=\"nx\">s</span> <span class=\"o\">=</span> <span class=\"s2\">\"JavaScript syntax highlighting\"</span><span class=\"p\">;</span>\n<span class=\"nx\">alert</span><span class=\"p\">(</span><span class=\"nx\">s</span><span class=\"p\">);</span>\n</code></pre>\n</div>\n\n<div class=\"language-python highlighter-rouge\"><pre class=\"highlight\"><code><span class=\"n\">s</span> <span class=\"o\">=</span> <span class=\"s\">\"Python syntax highlighting\"</span>\n<span class=\"k\">print</span> <span class=\"n\">s</span>\n</code></pre>\n</div>\n\n<div class=\"highlighter-rouge\"><pre class=\"highlight\"><code>No language indicated, so no syntax highlighting.\nBut let's throw in a &lt;b&gt;tag&lt;/b&gt;.\n</code></pre>\n</div>\n\n<hr />\n\n<h2 id=\"table\">Table</h2>\n\n<h3 id=\"table-1-with-alignment\">Table 1: With Alignment</h3>\n\n<table>\n  <thead>\n    <tr>\n      <th>Tables</th>\n      <th style=\"text-align: center\">for</th>\n      <th style=\"text-align: right\">Markdown</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>col 3 is</td>\n      <td style=\"text-align: center\">right-aligned</td>\n      <td style=\"text-align: right\">ok?</td>\n    </tr>\n    <tr>\n      <td>col 2 is</td>\n      <td style=\"text-align: center\">centered</td>\n      <td style=\"text-align: right\">Got it?</td>\n    </tr>\n    <tr>\n      <td>col 1 is</td>\n      <td style=\"text-align: center\">left-aligned</td>\n      <td style=\"text-align: right\">Alright!!!</td>\n    </tr>\n  </tbody>\n</table>\n\n<h3 id=\"table-2-with-typography-elements\">Table 2: With Typography Elements</h3>\n\n<table>\n  <thead>\n    <tr>\n      <th>Another</th>\n      <th>table</th>\n      <th>here</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td><em>I</em></td>\n      <td><code class=\"highlighter-rouge\">am</code></td>\n      <td><strong>row</strong></td>\n    </tr>\n    <tr>\n      <td>1</td>\n      <td>two</td>\n      <td>III</td>\n    </tr>\n  </tbody>\n</table>\n\n<hr />\n\n<h2 id=\"horizontal-line\">Horizontal Line</h2>\n\n<p>The HTML <code class=\"highlighter-rouge\">&lt;hr&gt;</code> element is for creating a “thematic break” between paragraph-level elements. In markdown, you can create a <code class=\"highlighter-rouge\">&lt;hr&gt;</code> with any of the following:</p>\n\n<ul>\n  <li><code class=\"highlighter-rouge\">___</code>: three consecutive underscores</li>\n  <li><code class=\"highlighter-rouge\">---</code>: three consecutive dashes</li>\n  <li><code class=\"highlighter-rouge\">***</code>: three consecutive asterisks</li>\n</ul>\n\n<p>renders to:</p>\n\n<hr />\n\n<hr />\n\n<hr />\n\n<p><br /></p>\n\n<h2 id=\"media\">Media</h2>\n\n<h3 id=\"youtube-embedded-iframe\">YouTube Embedded Iframe</h3>\n\n<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/OuoaKai_L00\" frameborder=\"0\" allowfullscreen=\"\"></iframe>\n\n<p><br /></p>\n\n<h3 id=\"image\">Image</h3>\n\n<p><img src=\"http://tse1.mm.bing.net/th?id=OIP.Mp2bUD7_6ZG418SbUnprpwCKDI&amp;pid=15.1\" alt=\"Spectrocat\" /></p>\n\n<p><br /></p>\n\n<h2 id=\"for-a-more-detailed-syntax-with-markdown-please-visit-daringfireballnet\">For a more detailed syntax with Markdown, please visit <a href=\"http://daringfireball.net/projects/markdown/syntax\">DaringFireball.net</a></h2>\n\n<h6 id=\"image-source-unsplash\">Image Source: <a href=\"https://unsplash.com/photos/6g0KJWnBhxg\">UNSPLASH</a></h6>\n\n<div class=\"footnotes\">\n  <ol>\n    <li id=\"fn:1\">\n      <p>Footnote number one.&nbsp;<a href=\"#fnref:1\" class=\"reversefootnote\">&#8617;</a></p>\n    </li>\n    <li id=\"fn:2\">\n      <p>A footnote you can link to - <a href=\"#\">click here!</a>&nbsp;<a href=\"#fnref:2\" class=\"reversefootnote\">&#8617;</a></p>\n    </li>\n  </ol>\n</div>\n"
+     
+   } ,
+  
+   {
+     
         "title"    : "error",
         "category" : "",
         "tags"     : "",
         "url"      : "/404.html",
         "date"     : "",
         "content"   : "<br>\n<br>\n<br>\n\n<div class=\"container\">\n\t<div class=\"row\">\n <div class=\"col-md-10 col-md-offset-1\">\n<h1>The page you requested <b style=\"color: #ffbb22; text-shadow: 2px 2px rgba(0, 0, 0, .75);\">no longer exists</b> or is <b style=\"color: #ffbb22; text-shadow: 2px 2px rgba(0, 0, 0, .75);\">temporarily unavailable</b>.</h1>\n\n\n<h3>If you think you reached this page in error, you can also ...</h3>\n\n<h4>Click your browser's Refresh button to try reconnecting to the requested page.</h4>\n<h4>Check the spelling of the URL to make sure the address is correct (capitalization and punctuation are important).</h4>\n<h4>Click your browser's Back button to return to the previous page.</h4>\n<h4>If you have a question or need assistance, please contact @  <a href=\"mailto:luox46@mail2.sysu.edu.cn\" data-toggle=\"tooltip\" target=\"_blank\" title=\"Email\" style=\"\nfont-size:1.5em;text-shadow: 2px 2px rgba(0, 0, 0, .75);text-decoration:none;\">\n     <i class=\"fa fa-envelope-o\"></i>\n    </a>.</h4>\n\t\t</div>\n\t</div>\n</div>\n\n<br>\n<br>\n<br>\n"
-     
-   } ,
-  
-   {
-     
-   } ,
-  
-   {
-     
-   } ,
-  
-   {
      
    } ,
   
@@ -60,6 +50,17 @@
   
    {
      
+        "title"    : "Search",
+        "category" : "",
+        "tags"     : "",
+        "url"      : "/search/",
+        "date"     : "",
+        "content"   : "<style type=\"text/css\">\n\n      #search-input {\n        display: inline-block;\n        color: #008989;\n        background-color: #30292b;\n        border-color: #223333;\n        padding: .5em;\n        width: 100%;\n        font-size: 0.8em;\n      }\n\n         #search-input:focus {\n        display: inline-block;\n        color: #008989;\n        background-color: #30292b;\n        border-color: #223333;\n        border-width: thick;\n        border-style: outset;\n        box-shadow: -1px 1px 5px 5px #624747;\n        outline: 0;\n        width: 100%;\n        font-size: 0.8em;\n              }\n\n    </style>\n\n<!-- Html Elements for Search -->\n<input type=\"text\" id=\"search-input\" placeholder=\"Enter keywords...\">\n<ul id=\"results-container\" style=\"list-style-type: none;\"></ul>\n\n<!-- Script pointing to jekyll-search.js -->\n<script src=\"/assets/libs/js/jekyll-search.js\" type=\"text/javascript\"></script>\n\n\n    <script type=\"text/javascript\">\n      SimpleJekyllSearch({\n        searchInput: document.getElementById('search-input'),\n        resultsContainer: document.getElementById('results-container'),\n        json: '/pages/search/search.json',\n        searchResultTemplate: '<li><a href=\"{url}\" title=\"{desc}\">{title}</a></li>',\n        noResultsText: 'No results found',\n        limit: 10,\n        fuzzy: true,\n        exclude: ['Welcome']\n      })\n    </script>\n\n<br>\n  <div id=\"tags\">\n  \t<h5>tag cloud</h5>\n   \n\n <span class=\"site-tag\">\n    <a href=\"/writing/tag/tag-name-one/\"\n        style=\"font-size: 84%\">\n            tag name one (1)\n    </a>\n</span>&nbsp;\n <span class=\"site-tag\">\n    <a href=\"/writing/tag/tag-name-two/\"\n        style=\"font-size: 84%\">\n            tag name two (1)\n    </a>\n</span>\n\n</div>\n\n\n<style>\n.site-tag a {\n    display: inline-block;\n    margin-right: 12px;\n}\n</style>\n\n<br>\n  <div id=\"categories\">\n  \t<h5>categories</h5>\n   \n\n <span class=\"site-category\">\n    <a href=\"/writing/category/cat03/\">\n            cat03 (1)\n    </a>\n</span>\n\n</div>\n\n\n<style>\n.site-category a {\n    display: inline-block;\n    margin-right: 12px;\n}\n</style>\n\n<br>\n"
+     
+   } ,
+  
+   {
+     
         "title"    : "Gallery",
         "category" : "",
         "tags"     : "",
@@ -71,23 +72,12 @@
   
    {
      
-        "title"    : "Search",
+        "title"    : "store",
         "category" : "",
         "tags"     : "",
-        "url"      : "/search/",
+        "url"      : "/store/",
         "date"     : "",
-        "content"   : "<style type=\"text/css\">\n\n      #search-input {\n        display: inline-block;\n        color: #008989;\n        background-color: #30292b;\n        border-color: #223333;\n        padding: .5em;\n        width: 100%;\n        font-size: 0.8em;\n      }\n\n         #search-input:focus {\n        display: inline-block;\n        color: #008989;\n        background-color: #30292b;\n        border-color: #223333;\n        border-width: thick;\n        border-style: outset;\n        box-shadow: -1px 1px 5px 5px #624747;\n        outline: 0;\n        width: 100%;\n        font-size: 0.8em;\n              }\n\n    </style>\n\n<!-- Html Elements for Search -->\n<input type=\"text\" id=\"search-input\" placeholder=\"Enter keywords...\">\n<ul id=\"results-container\" style=\"list-style-type: none;\"></ul>\n\n<!-- Script pointing to jekyll-search.js -->\n<script src=\"/assets/libs/js/jekyll-search.js\" type=\"text/javascript\"></script>\n\n\n    <script type=\"text/javascript\">\n      SimpleJekyllSearch({\n        searchInput: document.getElementById('search-input'),\n        resultsContainer: document.getElementById('results-container'),\n        json: '/pages/search/search.json',\n        searchResultTemplate: '<li><a href=\"{url}\" title=\"{desc}\">{title}</a></li>',\n        noResultsText: 'No results found',\n        limit: 10,\n        fuzzy: true,\n        exclude: ['Welcome']\n      })\n    </script>\n\n<br>\n  <div id=\"tags\">\n  \t<h5>tag cloud</h5>\n   \n\n <span class=\"site-tag\">\n    <a href=\"/writing/tag/tag-name-one/\"\n        style=\"font-size: 88%\">\n            tag name one (2)\n    </a>\n</span>&nbsp;\n <span class=\"site-tag\">\n    <a href=\"/writing/tag/tag-name-two/\"\n        style=\"font-size: 88%\">\n            tag name two (2)\n    </a>\n</span>\n\n</div>\n\n\n<style>\n.site-tag a {\n    display: inline-block;\n    margin-right: 12px;\n}\n</style>\n\n<br>\n  <div id=\"categories\">\n  \t<h5>categories</h5>\n   \n\n <span class=\"site-category\">\n    <a href=\"/writing/category/cat01/\">\n            cat01 (1)\n    </a>\n</span>&nbsp;\n <span class=\"site-category\">\n    <a href=\"/writing/category/cat02/\">\n            cat02 (1)\n    </a>\n</span>&nbsp;\n <span class=\"site-category\">\n    <a href=\"/writing/category/cat03/\">\n            cat03 (1)\n    </a>\n</span>\n\n</div>\n\n\n<style>\n.site-category a {\n    display: inline-block;\n    margin-right: 12px;\n}\n</style>\n\n<br>\n"
-     
-   } ,
-  
-   {
-     
-        "title"    : "Writing",
-        "category" : "",
-        "tags"     : "",
-        "url"      : "/writing/",
-        "date"     : "",
-        "content"   : "\n\n\n \n  \n\n\n\n<div class=\"post-preview\">\n\n<a href=\"/writing/markdown-cheatsheet/\">\n        \n\t<img src=\"/assets/owner/blog/thumbs/thumb02.png\" style=\"float: left; margin: 8px 10px 0px 10px;\">\n\t\n\n\n        <h2 class=\"post-title\">     Markdown Cheatsheet\n        </h2>\n        \n        <h3 class=\"post-subtitle\">  \n            This is Markdown Cheatsheet for MAD4Jekyll\n        </h3>\n        \n    </a>\n    <p class=\"post-meta\">Posted by MADness on November 25, 2015</p>\n</div>\n \n\n\n \n  \n\n\n\n<div class=\"post-preview\">\n\n<a href=\"/writing/multiple-galleries/\">\n        \n\t<img src=\"/assets/owner/blog/thumbs/thumb01.png\" style=\"float: left; margin: 8px 10px 0px 10px;\">\n\t\n\n\n        <h2 class=\"post-title\">     Multiple Galleries\n        </h2>\n        \n        <h3 class=\"post-subtitle\">  \n            A post with multiple galleries arranged with ISOTOPE\n        </h3>\n        \n    </a>\n    <p class=\"post-meta\">Posted by MADness on November 23, 2015</p>\n</div>\n \n<p>&nbsp;</p>\n\n<!-- Pager -->\n\n"
+        "content"   : ""
      
    } ,
   
@@ -104,9 +94,12 @@
   
    {
      
-   } ,
-  
-   {
+        "title"    : "Writing",
+        "category" : "",
+        "tags"     : "",
+        "url"      : "/writing/",
+        "date"     : "",
+        "content"   : "\n\n\n \n  \n\n\n\n<div class=\"post-preview\">\n\n<a href=\"/writing/multiple-galleries/\">\n        \n\t<img src=\"/assets/owner/blog/thumbs/thumb01.png\" style=\"float: left; margin: 8px 10px 0px 10px;\">\n\t\n\n\n        <h2 class=\"post-title\">     Multiple Galleries\n        </h2>\n        \n        <h3 class=\"post-subtitle\">  \n            A post with multiple galleries arranged with ISOTOPE\n        </h3>\n        \n    </a>\n    <p class=\"post-meta\">Posted by MADness on November 23, 2015</p>\n</div>\n \n<p>&nbsp;</p>\n\n<!-- Pager -->\n\n"
      
    } ,
   
