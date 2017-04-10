@@ -1,0 +1,82 @@
+
+加粗：
+\textbf{文字}
+
+数学模式下用\usepackage{bm}
+
+$\bm{ a }$
+ 
+ 
+ 
+下划线：
+用 \underline{ This is an underline text } 就可以.
+ 
+斜体：
+用 \emph{文字}
+ 
+跟 \emph{} 命令不同 \emph 是会让文字变跟现在文字不同. 如正体变斜体, 或者斜体变正体.
+
+
+既想加粗又想变斜体
+emph{\textbf{blablablabla}}
+
+
+/em 声明选用强调字体，它与当前字体同族、同系列，但形状不同，通常是在直立字体与斜体间转换。
+/emph{文本} 用强调字体打印文本，它与当前字体同族、同系列，但形状不同，通常是在直立字体与斜体间转换，此命令等价于{/em 文本//}，也就是说，自动插入了斜体附加留空。
+/nocorr 与字体命令/emph，/textsl，/textit合用，以取消自动的斜体校正。
+
+/normalfont 本声明把字体转换为默认的族、形状和系列。
+
+/bfseries 本声明不改变当前字体的族与形状，但转变成bold序列。 
+/mdseries 本声明不改变当前字体的族与形状，但转变成中等粗细medium序列。
+
+/itshape 本声明把字体的形状属性改为斜体，但保留族与系列不变。
+/scshape 本声明把字体的形状属性改为小型大写，但保留族与系列不变。
+/slshape 本声明把字体的形状属性改为slanted的斜体，但保留族与系列不变。
+/upshape 本声明把字体的形状属性改为直立，但保留族与系列不变。
+
+/rmfamily 本命令使字体保持当前的系列与形状属性，但转变为罗马族属性。
+/sffamily 本命令使字体保持当前的系列与形状属性，但转变为无衬线族属性。
+/ttfamily 使字体保持当前的系列与形状属性，但转变为打字机族属性。
+
+/mathbf{文本} 在数学模式里用粗体（/bfseries）打印文本，其中的空格被忽略。
+/mathcal{文本} 在数学模式里用书写体打印文本。
+/mathit{文本} 在数学模式里用斜体（/itshape）打印文本。
+/mathnormal{文本} 在数学模式里用数学字体打印文本。
+/mathrm{文本} 在数学模式里用罗马体（/rmfamily）打印文本，其中的空格被忽略。
+/mathsf{文本} 在数学模式里用无衬线字体（/sffamily）打印文本，其中的空格被忽略。
+/mathtt{文本} 在数学模式里用打印机字体（/ttfamily）打印文本，其中的空格被忽略。
+
+/textbf{文本}等价于{/bfseries 文本}
+/textit{文本}等价于{/itshape 文本}
+/textmd{文本}等价于{/mdseries 文本}
+/textnormal{文本}等价于{/normalfont 文本}
+/textrm{文本}等价于{/rmfamily 文本}
+/textsc{文本}等价于{/scshape 文本}
+/textsf{文本}等价于{/sffamily 文本}
+/textsl{文本}等价于{/slshape 文本}
+/texttt{文本}等价于{/ttfamily 文本}
+/textup{文本}等价于{/upshape 文本}
+
+
+
+ontspec 宏包
+在 正文排版 中, 我们介绍了一些设置字体的命令, 包括: \textnormal, \textbf, \textsl, \texttt 等等. 在 LaTeX 中, 一个字体可以通过如下几个属性进行描述:
+
+编码 (font encoding)
+字体族 (font family)
+字系 (font series)
+字形 (font shape)
+字号 (font size)
+这些属性的详细说明请参考 LaTeX 发行版中自带的文档 fntguide.pdf.
+
+等等, 在你找到 fntguide.pdf 这本几十页的关于 LaTeX 字体的文档并把它看完之前, 我想请您看完本文关于 fontspec 宏包的介绍, 一个非常强大, 并且简单易用的设置文档字体的宏包.
+
+fontspec 宏包主要提供了三个命令用于设置字体:
+
+\setmainfont 命令设置文档的默认字体.
+\setsansfont 命令设置文档的 无袖衬 (sans-serif) 字体 [1].
+\setmonofont 命令设置文档的 等宽 (fixed width) 字体 [2].
+这些命令使用并不复杂, 具体用法看下面的示例.
+
+

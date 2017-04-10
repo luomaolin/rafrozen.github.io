@@ -1,0 +1,23 @@
+# 笔记本电脑安装 ubuntu
+*联想笔记本yoga2*
+无线wifi 开关关闭
+
+
+首先使用
+```
+rfkill list all
+```
+查看网卡驱动开关情况
+
+应该可以看到网卡和 bluetooth 
+soft blocked & hard blocked 的情况
+硬件的开关在 bios 设置
+电脑是一个无线网卡是硬件是关闭 但是有一个是开的 但是优先级不够。
+所以
+```
+sudo modprobe -r ideapad_laptop
+```
+移除 ideapad的无线驱动 接下来再查看
+```
+rfkill list all
+```
