@@ -1,11 +1,11 @@
 [
   
     {
-      "title"    : "Multiple Galleries",
+      "title"    : "笔记本电脑安装 ubuntu wifi 配置出错",
       "category" : "cat03",
       "tags"     : "tag-name-one, tag-name-two",
-      "url"      : "/writing/multiple-galleries/",
-      "date"     : "2015-11-23 20:00:00 +0800",
+      "url"      : "/writing/wifi/",
+      "date"     : "2017-04-18 20:00:00 +0800",
       "content"   : "[\n  {% for post in site.posts %}\n    {\n      \"title\"    : \"{{ post.title | escape }}\",\n      \"category\" : \"{{ post.category }}\",\n      \"tags\"     : \"{{ post.tags | join: ', ' }}\",\n      \"url\"      : \"{{ site.baseurl }}{{ post.url }}\",\n      \"date\"     : \"{{ post.date }}\",\n      \"content\"   : {{ page.content | jsonify }}\n    } {% unless forloop.last %},{% endunless %}\n  {% endfor %}\n  ,\n  {% for page in site.pages %}\n   {\n     {% if page.title != nil %}\n        \"title\"    : \"{{ page.title | escape }}\",\n        \"category\" : \"{{ page.category }}\",\n        \"tags\"     : \"{{ page.tags | join: ', ' }}\",\n        \"url\"      : \"{{ site.baseurl }}{{ page.url }}\",\n        \"date\"     : \"{{ page.date }}\",\n        \"content\"   : {{ page.content | jsonify }}\n     {% endif %}\n   } {% unless forloop.last %},{% endunless %}\n  {% endfor %}\n]"
     } 
   
@@ -44,7 +44,18 @@
         "tags"     : "",
         "url"      : "/index.html",
         "date"     : "",
-        "content"   : "<html class=\"no-js\" lang=\"en\">\n<head>\n\t<meta content=\"charset=utf-8\">\n\n<!-- CSS -->\n\t<link rel=\"stylesheet\" href=\"/assets/libs/css/intro.css\" type=\"text/css\" media=\"screen\" />\n\t<link rel=\"stylesheet\" href=\"/assets/libs/css/flexslider.css\" type=\"text/css\" media=\"screen\" />\n\n<!-- jQuery -->\n  <script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js\"></script>\n\n  <!-- FlexSlider -->\n  <script defer src=\"/assets/libs/js/jquery.flexslider.js\"></script>\n\n<!-- Modernizr -->\n  <script src=\"/assets/libs/js/modernizr.js\"></script>\n\n  <!-- Back To Top -->\n  <script type=\"text/javascript\">\n    $(function(){\n      SyntaxHighlighter.all();\n    });\n    $(window).load(function(){\n      $('.flexslider').flexslider({\n        animation: \"slide\",\n        slideshow: false,\n        slideshowSpeed: 12000,\n        pausePlay: true,\n        start: function(slider){\n          $('body').removeClass('loading');\n        }\n      });\n    });\n  </script>\n\n</head>\n\n<body>\n\n\t<div class=\"intro\">\n\t\t<div class=\"row\">\n\n<center><h2>Welcome Agent</h2></center>\n\t\t\t\t<div class=\"col-lg-9   col-md-10 col-lg-offset-1 col-md-offset-1 \">\n\t\t\t\t\t<center>\n\t\t\t\t\t<h4>\n\t\t\t\t\t<br><br> <a href=\"/writing/\">My blogs</a>\n\t\t\t\t\t<br><br> <a href=\"/gallery/\">galleries</a>\n\t\t\t\t\t<br><br> <a href=\"/about/\">Me</a>\n\t\t\t\t\t</h4>\n\t\t\t\t</center>\n\t\t\t\t</div>\n\n\t\t</div>\n\t</div>\n</body>\n</html>\n"
+        "content"   : "<html class=\"no-js\" lang=\"en\">\n<head>\n\t<meta content=\"charset=utf-8\">\n\n<!-- CSS -->\n\t<link rel=\"stylesheet\" href=\"/assets/libs/css/intro.css\" type=\"text/css\" media=\"screen\" />\n\t<link rel=\"stylesheet\" href=\"/assets/libs/css/flexslider.css\" type=\"text/css\" media=\"screen\" />\n\n<!-- jQuery -->\n  <script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js\"></script>\n\n  <!-- FlexSlider -->\n  <script defer src=\"/assets/libs/js/jquery.flexslider.js\"></script>\n\n<!-- Modernizr -->\n  <script src=\"/assets/libs/js/modernizr.js\"></script>\n\n  <!-- Back To Top -->\n  <script type=\"text/javascript\">\n    $(function(){\n      SyntaxHighlighter.all();\n    });\n    $(window).load(function(){\n      $('.flexslider').flexslider({\n        animation: \"slide\",\n        slideshow: false,\n        slideshowSpeed: 12000,\n        pausePlay: true,\n        start: function(slider){\n          $('body').removeClass('loading');\n        }\n      });\n    });\n  </script>\n\n</head>\n\n<body>\n\n\t<div class=\"intro\">\n\t\t<div class=\"row\">\n\n<center><h2>Welcome Agent</h2></center>\n\t\t\t\t<div class=\"col-lg-9   col-md-10 col-lg-offset-1 col-md-offset-1 \">\n\t\t\t\t\t<center>\n\t\t\t\t\t<h4>\n\t\t\t\t\t<br><br> <a href=\"/writing/\">My blogs</a>\n\t\t\t\t\t<br><br> <a href=\"/about/\">Me</a>\n\t\t\t\t\t</h4>\n\t\t\t\t</center>\n\t\t\t\t</div>\n\n\t\t</div>\n\t</div>\n</body>\n</html>\n"
+     
+   } ,
+  
+   {
+     
+        "title"    : "Writing",
+        "category" : "",
+        "tags"     : "",
+        "url"      : "/writing/",
+        "date"     : "",
+        "content"   : "\n\n\n \n  \n\n\n\n<div class=\"post-preview\">\n\n<a href=\"/writing/wifi/\">\n        \n\t<img src=\"/assets/owner/blog/thumbs/thumb01.png\" style=\"float: left; margin: 8px 10px 0px 10px;\">\n\t\n\n\n        <h2 class=\"post-title\">     笔记本电脑安装 ubuntu wifi 配置出错\n        </h2>\n        \n        <h3 class=\"post-subtitle\">  \n            \n        </h3>\n        \n    </a>\n    <p class=\"post-meta\">Posted by loyxin on April 18, 2017</p>\n</div>\n \n<p>&nbsp;</p>\n\n<!-- Pager -->\n\n"
      
    } ,
   
@@ -61,12 +72,12 @@
   
    {
      
-        "title"    : "Gallery",
+        "title"    : "About",
         "category" : "",
         "tags"     : "",
-        "url"      : "/gallery/",
+        "url"      : "/about/",
         "date"     : "",
-        "content"   : "<html class=\"no-js\" lang=\"en\">\n<head>\n\t<meta content=\"charset=utf-8\">\n\n\n\n<!-- CSS -->\n\t<link rel=\"stylesheet\" href=\"../assets/libs/css/flexslider.css\" type=\"text/css\" media=\"screen\" />\n\n</head>\n\n    <body>\n  <!-- slider -->\n    <section class=\"slider\">\n\t<div class=\"flexslider\">\n   <ul class=\"slides\">\n    <li>\n      <img src=\"/assets/owner/slider/bg1.jpg\" />\n<p class=\"flex-caption\">\n    </li>\n    <li>\n      <img src=\"/assets/owner/slider/bg2.jpg\" />\n<p class=\"flex-caption\">\n    </li>\n    <li>\n      <img src=\"/assets/owner/slider/bg3.jpg\" />\n<p class=\"flex-caption\">\n    </li>\n      </ul>\n</div>\n      </section>\n\n<!-- jQuery -->\n  <script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js\"></script>\n<script src=\"http://code.jquery.com/jquery-1.11.3.min.js\"></script>\n\n  <!-- FlexSlider -->\n  <script defer src=\"../assets/libs/js/jquery.flexslider.js\"></script>\n\n  <script type=\"text/javascript\">\n    $(function(){\n      SyntaxHighlighter.all();\n    });\n    $(window).load(function(){\n      $('.flexslider').flexslider({\n        animation: \"slide\",\n        slideshow: \"false\",\n        slideshowSpeed: \"12000\",\n        pausePlay: \"true\",\n        start: function(slider){\n          $('body').removeClass('loading');\n        }\n      });\n    });\n  </script>\n\n<br>\n\n\n\n\n</body></html>\n"
+        "content"   : "<br>\n<h1> About me </h1>\n<h4><li> Optical Information and Technology Major, Sun Yat-sen University, 2014 - 2018</li><li>using vim atom</h4>\n\n<!--  br 换行-->\n<br>\n\n<br>\n"
      
    } ,
   
@@ -78,28 +89,6 @@
         "url"      : "/store/",
         "date"     : "",
         "content"   : ""
-     
-   } ,
-  
-   {
-     
-        "title"    : "About",
-        "category" : "",
-        "tags"     : "",
-        "url"      : "/about/",
-        "date"     : "",
-        "content"   : "<br>\n<h1> About me </h1>\n<h4><li> Optical Information and Technology Major, Sun Yat-sen University, 2014 - 2018</li></h4>\n\n<!--  br 换行-->\n<br>\n\n<br>\n"
-     
-   } ,
-  
-   {
-     
-        "title"    : "Writing",
-        "category" : "",
-        "tags"     : "",
-        "url"      : "/writing/",
-        "date"     : "",
-        "content"   : "\n\n\n \n  \n\n\n\n<div class=\"post-preview\">\n\n<a href=\"/writing/multiple-galleries/\">\n        \n\t<img src=\"/assets/owner/blog/thumbs/thumb01.png\" style=\"float: left; margin: 8px 10px 0px 10px;\">\n\t\n\n\n        <h2 class=\"post-title\">     Multiple Galleries\n        </h2>\n        \n        <h3 class=\"post-subtitle\">  \n            A post with multiple galleries arranged with ISOTOPE\n        </h3>\n        \n    </a>\n    <p class=\"post-meta\">Posted by MADness on November 23, 2015</p>\n</div>\n \n<p>&nbsp;</p>\n\n<!-- Pager -->\n\n"
      
    } ,
   

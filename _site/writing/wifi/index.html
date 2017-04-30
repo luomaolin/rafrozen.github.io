@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="waiting for you">
 
-        <title>Gallery - loyxin</title>
+        <title>笔记本电脑安装 ubuntu wifi 配置出错 - loyxin</title>
 
-    <link rel="canonical" href="http://localhost:4000/gallery/">
+    <link rel="canonical" href="http://localhost:4000/writing/wifi/">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href=" http://localhost:4000/assets/libs/css/main.css">
@@ -78,9 +78,7 @@
 <li>
                     <a href="/writing/">WRITING</a>
                 </li>
-<li>
-                    <a href="/gallery/">GALLERY</a>
-                </li>
+
 <li>
                     <a href="/about/">ABOUT</a>
                 </li>
@@ -105,15 +103,11 @@
                 </li>
                 
                 <li>
+                    <a href="/writing/">Writing</a>
+                </li>
+                
+                <li>
                     <a href="/search/">Search</a>
-                </li>
-                
-                <li>
-                    <a href="/gallery/">Gallery</a>
-                </li>
-                
-                <li>
-                    <a href="/store/">store</a>
                 </li>
                 
                 <li>
@@ -121,7 +115,7 @@
                 </li>
                 
                 <li>
-                    <a href="/writing/">Writing</a>
+                    <a href="/store/">store</a>
                 </li>
                  ...
 
@@ -135,93 +129,203 @@
 </nav>
 
 <main role="main" class="content">
-    <!-- Page Header -->
-<header class="intro-header" style="background-image: url('/assets/owner/hero/gallery-bg.jpg')">
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <meta name="viewport" content="width=device-width">
+
+<link rel="stylesheet" href="/assets/libs/css/galleries.css">
+<link rel="stylesheet" href="/assets/libs/css/magnificpopup.css">
+
+    </head>
+    <body>
+
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+
+  <!-- Footnotes CSS-->
+
+<link href="/assets/libs/css/bigfoot.css" rel="stylesheet" />
+
+
+
+<article>
+<!-- Post Header -->
+<header class="intro-header" style="background-image: url('/assets/owner/blog/header/post-bg-01.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <center><h1>Gallery</h1> </center>
-                    <hr class="small">
-                    <span class="subheading">Diffraction imaging</span>
+                <div class="post-heading">
+                    <h1 style="color: #acd578; text-shadow: 2px 2px rgba(0, 0, 0, 0.75); transition: color .4s;">笔记本电脑安装 ubuntu wifi 配置出错</h1>
+                    
+                    <h2 class="subheading" style="text-shadow: 2px 2px rgba(0, 0, 0, 0.75); transition: color .4s;"></h2>
+                    
+                    <span class="meta" style="text-shadow: 2px 2px rgba(0, 0, 0, 0.75); transition: color .4s;">Posted by loyxin on April 18, 2017</span>
+
+<span class="time-tag-categ" style="font-size:.45em;background-color: rgba(128, 128, 128, 0.45);">
+
+<i class="fa fa-clock-o"></i>&nbsp;
+1 minute read
+
+
+
+ 
+  &sim; Tagged with <i class="fa fa-tags"></i>&nbsp;:&nbsp;
+<a href="/writing/tag/tag-name-one/" data-toggle="tooltip" title="Other posts tagged with tag-name-one" rel="tag" style="text-shadow: 2px 2px #000000;">tag-name-one</a>&nbsp;&bull;&nbsp;<a href="/writing/tag/tag-name-two/" data-toggle="tooltip" title="Other posts tagged with tag-name-two" rel="tag" style="text-shadow: 2px 2px #000000;">tag-name-two</a>
+
+
+          
+
+                           &sim; Filed in <i class="fa fa-briefcase"></i>&nbsp;:&nbsp;<span class="post-tags"><a href="/writing/category/cat03/" data-toggle="tooltip" title="Other posts filed in cat03 category" rel="tag" style="text-shadow: 2px 2px #000000;">cat03</a></span>
+
+   </span>
+
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-	<div class="row">
-		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-			<html class="no-js" lang="en">
-<head>
-	<meta content="charset=utf-8">
+<!-- Post Content -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
 
+               				<h1 id="笔记本电脑安装-ubuntu">笔记本电脑安装 ubuntu</h1>
+<p><em>联想笔记本yoga2</em>
+无线wifi 开关关闭</p>
 
-<!-- CSS -->
-	<link rel="stylesheet" href="../assets/libs/css/flexslider.css" type="text/css" media="screen" />
-
-</head>
-
-    <body>
-  <!-- slider -->
-    <section class="slider">
-	<div class="flexslider">
-   <ul class="slides">
-    <li>
-      <img src="/assets/owner/slider/bg1.jpg" />
-<p class="flex-caption">
-    </li>
-    <li>
-      <img src="/assets/owner/slider/bg2.jpg" />
-<p class="flex-caption">
-    </li>
-    <li>
-      <img src="/assets/owner/slider/bg3.jpg" />
-<p class="flex-caption">
-    </li>
-      </ul>
+<p>首先使用</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>rfkill list all
+</code></pre>
 </div>
-      </section>
+<p>查看网卡驱动开关情况</p>
 
-<!-- jQuery -->
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<p>应该可以看到网卡和 bluetooth
+soft blocked &amp; hard blocked 的情况
+硬件的开关在 bios 设置
+电脑是一个无线网卡是硬件是关闭 但是有一个是开的 但是优先级不够。
+所以</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo modprobe -r ideapad_laptop
+</code></pre>
+</div>
+<p>移除 ideapad的无线驱动 接下来再查看</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>rfkill list all
+</code></pre>
+</div>
 
-  <!-- FlexSlider -->
-  <script defer src="../assets/libs/js/jquery.flexslider.js"></script>
 
-  <script type="text/javascript">
-    $(function(){
-      SyntaxHighlighter.all();
-    });
-    $(window).load(function(){
-      $('.flexslider').flexslider({
-        animation: "slide",
-        slideshow: "false",
-        slideshowSpeed: "12000",
-        pausePlay: "true",
-        start: function(slider){
-          $('body').removeClass('loading');
-        }
-      });
-    });
-  </script>
+                <br>
+
+ <div class="post-share text-center">
+    <p class="light small">
+        <h6>Share this post</h6>
+    </p>
+    <ul class="social-mini">
+        <li>
+            <a href="https://twitter.com/intent/tweet?text=&quot;笔记本电脑安装 ubuntu wifi 配置出错&quot;%20http://localhost:4000/writing/wifi/%20via%20&#64;"
+            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" data-toggle="tooltip" title="Share on Twitter" itemprop="Twitter">
+                <span class="fa-stack fa-lg" style="
+color: #223333;font-size:1em;">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+
+            </a>
+        </li>
+        <li>
+            <a  href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/writing/wifi/"
+            onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" data-toggle="tooltip" title="Share on Facebook" itemprop="Facebook">
+                <span class="fa-stack fa-lg" style="
+color: #223333;font-size:1em;">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+
+            </a>
+        </li>
+        <li>
+            <a href="https://plus.google.com/share?url=http://localhost:4000/writing/wifi/"
+           onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" data-toggle="tooltip" title="Share on Google plus" itemprop="GooglePlus">
+                <span class="fa-stack fa-lg" style="
+color: #223333;font-size:1em;">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-google-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+
+            </a>
+        </li>
+    </ul></div>
+                        <div class="post-author text-center">                       
+	        <img src="/assets/owner/avatar.jpg" alt="loyxin's photo" itemprop="image" class="post-avatar img-circle img-responsive"/>    
+	    <h4 class="bordered-bottom vcard author">By <span itemprop="name" class="fn"><a href="/about" title="About loyxin" itemprop="url">loyxin</a></span></h4>
+	    <p>Waiting For You</p>
+</div>
+<div id="disqus_thread"></div>
+<script>
+        var disqus_config = function () {
+        this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    
+    (function() {  // REQUIRED CONFIGURATION VARIABLE: EDIT THE SHORTNAME BELOW
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//madforjekyll.disqus.com/embed.js';  // IMPORTANT: Replace 'madforjekyll' with your forum shortname!
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+                <br>
+
+                <ul class="pager">
+                    
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+<!--comments-->
+
+<div id="disqus_thread"></div>
+<script>
+
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+/*
+var disqus_config = function () {
+this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+*/
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://rafrozen.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+</article>
 
 <br>
 
 
 
 
-</body></html>
-
-		</div>
-	</div>
-</div>
-
-<br>
+</body>
+</html>
 
 </main>
     <!-- Footer -->

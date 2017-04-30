@@ -5,16 +5,38 @@
     <description>waiting for you</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 09 Apr 2017 01:38:48 +0800</pubDate>
-    <lastBuildDate>Sun, 09 Apr 2017 01:38:48 +0800</lastBuildDate>
+    <pubDate>Wed, 19 Apr 2017 13:30:51 +0800</pubDate>
+    <lastBuildDate>Wed, 19 Apr 2017 13:30:51 +0800</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
-        <title>Multiple Galleries</title>
-        <description>&lt;p&gt; Content of your post HERE &lt;/p&gt; &lt;p&gt; Add as many paragraphs amongst your galleries as you want. &lt;/p&gt; &lt;div class=&quot;gallery masonry-gallery&quot;&gt; &lt;figure class=&quot;gallery-item&quot;&gt; &lt;header class=&quot;gallery-icon&quot;&gt; &lt;a href=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg1.jpg&quot; class=&quot;popup&quot; title=&quot;IMAGE TITLE&quot; data-caption=&quot;© MADness&quot;&gt; &lt;img src=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg1.jpg&quot; /&gt;&lt;/a&gt; &lt;/header&gt; &lt;figcaption class=&quot;gallery-caption&quot;&gt; &lt;div class=&quot;entry-summary&quot; id=&quot;IMAGE TITLE&quot;&gt; &lt;h5 style=&quot;text-shadow: 2px 2px #000000;&quot;&gt;IMAGE TITLE&lt;/h5&gt; &lt;h6 style=&quot;text-shadow: 2px 2px #000000;&quot;&gt;© MADness&lt;/h6&gt; &lt;/div&gt; &lt;/figcaption&gt; &lt;/figure&gt; &lt;figure class=&quot;gallery-item&quot;&gt; &lt;header class=&quot;gallery-icon&quot;&gt; &lt;a href=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg2.jpg&quot; class=&quot;popup&quot; title=&quot;IMAGE TITLE&quot; data-caption=&quot;© MADness&quot;&gt; &lt;img src=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg2.jpg&quot; /&gt;&lt;/a&gt; &lt;/header&gt; &lt;figcaption class=&quot;gallery-caption&quot;&gt; &lt;div class=&quot;entry-summary&quot; id=&quot;IMAGE TITLE&quot;&gt; &lt;h5 style=&quot;text-shadow: 2px 2px #000000;&quot;&gt;IMAGE TITLE&lt;/h5&gt; &lt;h6 style=&quot;text-shadow: 2px 2px #000000;&quot;&gt;© MADness&lt;/h6&gt; &lt;/div&gt; &lt;/figcaption&gt; &lt;/figure&gt; &lt;figure class=&quot;gallery-item&quot;&gt; &lt;header class=&quot;gallery-icon&quot;&gt; &lt;a href=&quot;http://localhost:4000/assets/owner/blog/galleries/g01/bg3.jpg&quot;...</description>
-        <pubDate>Mon, 23 Nov 2015 20:00:00 +0800</pubDate>
-        <link>http://localhost:4000/writing/multiple-galleries/</link>
-        <guid isPermaLink="true">http://localhost:4000/writing/multiple-galleries/</guid>
+        <title>笔记本电脑安装 ubuntu wifi 配置出错</title>
+        <description>&lt;h1 id=&quot;笔记本电脑安装-ubuntu&quot;&gt;笔记本电脑安装 ubuntu&lt;/h1&gt;
+&lt;p&gt;&lt;em&gt;联想笔记本yoga2&lt;/em&gt;
+无线wifi 开关关闭&lt;/p&gt;
+
+&lt;p&gt;首先使用&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rfkill list all
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;查看网卡驱动开关情况&lt;/p&gt;
+
+&lt;p&gt;应该可以看到网卡和 bluetooth
+soft blocked &amp;amp; hard blocked 的情况
+硬件的开关在 bios 设置
+电脑是一个无线网卡是硬件是关闭 但是有一个是开的 但是优先级不够。
+所以&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;sudo modprobe -r ideapad_laptop
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;p&gt;移除 ideapad的无线驱动 接下来再查看&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;rfkill list all
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Tue, 18 Apr 2017 20:00:00 +0800</pubDate>
+        <link>http://localhost:4000/writing/wifi/</link>
+        <guid isPermaLink="true">http://localhost:4000/writing/wifi/</guid>
         
         <category>tag-name-one</category>
         
