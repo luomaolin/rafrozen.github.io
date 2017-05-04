@@ -1,4 +1,5 @@
 # Jekyll使用篇 1 - 发布文章、加入评论功能、加入Google Analytics http://wellsnake.com/jekyll/update/2014/05/24/Jekyll%E4%BD%BF%E7%94%A8%E7%AF%871/
+<<<<<<< HEAD
 
 
 
@@ -94,3 +95,5 @@ Jekyll 会自动取每篇文章从开头到第一次出现 `excerpt_separator `�
 标记
 
 
+=======
+>>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
