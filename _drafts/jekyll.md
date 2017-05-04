@@ -1,0 +1,96 @@
+# Jekyll使用篇 1 - 发布文章、加入评论功能、加入Google Analytics http://wellsnake.com/jekyll/update/2014/05/24/Jekyll%E4%BD%BF%E7%94%A8%E7%AF%871/
+
+
+
+# jekyll 备忘
+
+[TOC]
+
+
+#### 生成blog
+```
+jekyll new [目录]
+cd xx
+jekyll s
+```
+## 目录结构
+
+
+
+
+| column | column |
+|--------|--------|
+|     _config.yml   |    配置文件    |
+|_includes| 经常复用 用{% include file%}|
+|_post | 文章存放|
+|_layout|文章格式 类似模板|
+|_site|生成的 html 文件 |
+|sitemap.xml| 站点图|
+|feed.xml| Rss|
+
+## 头信息
+按照 YAML 的格式写在两行三虚线之间
+
+##  自定义变量
+#### 全局(Global)变量
+| column | column |
+|--------|--------|
+| site   |    来自`_config.yml`文件，全站范围的信息+配置。    |
+|page | 页面专属的信息 + YAML 头文件信息。通过 YAML 头文件自定义的信息都可以在这里被获取。|
+
+#### 全站(site)变量
+| site.time
+当前时间（运行jekyll这个命令的时间点）。|
+
+#### 页面(page)变量
+| column | column |
+|--------|--------|
+|  page.content |   页面内容的源码。  |
+
+
+#### 分页器(Paginator)
+
+| column | column |
+|--------|--------|
+| paginator.per_page| 每一页 Posts 的数量 |
+
+
+## 撰写博客
+#### 文章的目录
+```
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+```
+
+## 文章摘要
+Jekyll 会自动取每篇文章从开头到第一次出现 `excerpt_separator `的地方作为文章的摘要，并将此内容保存到变量 `post.excerpt `中。
+```
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+      <p>{{ post.excerpt }}</p>
+    </li>
+  {% endfor %}
+</ul>
+```
+###### 除去标签 p
+```
+{{ post.excerpt | remove: '<p>' | remove: '</p>' }}
+```
+## 高亮代码片段
+
+```
+{% highlight ruby %} 
+{% endhighlight %}
+
+```
+标记
+
+
