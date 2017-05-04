@@ -1,36 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
-<<<<<<< HEAD
   
     
     <url>
       <loc>http://localhost:4000/archive/</loc>
       
-        <lastmod>2017-05-05T00:51:34+08:00</lastmod>
-=======
-    
-    <url>
-      <loc>http://localhost:4000/writing/wifi/</loc>
-      
-        <lastmod>2017-04-18T20:00:00+08:00</lastmod>
-      
-      
-        <changefreq>monthly</changefreq>
-      
-      
-        <priority>0.5</priority>
-      
-    </url>
-    
-  
-  
-    
-    <url>
-      <loc>http://localhost:4000/stored/2015-11-23-markdown/</loc>
-      
-        <lastmod>2015-11-25T20:00:00+08:00</lastmod>
->>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -43,15 +19,9 @@
   
     
     <url>
-<<<<<<< HEAD
       <loc>http://localhost:4000/category/</loc>
       
-        <lastmod>2017-05-05T00:51:34+08:00</lastmod>
-=======
-      <loc>http://localhost:4000/404.html</loc>
-      
-        <lastmod>2017-04-19T13:30:51+08:00</lastmod>
->>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -64,15 +34,9 @@
   
     
     <url>
-<<<<<<< HEAD
       <loc>http://localhost:4000/tag/</loc>
       
-        <lastmod>2017-05-05T00:51:34+08:00</lastmod>
-=======
-      <loc>http://localhost:4000/feed.xml</loc>
-      
-        <lastmod>2017-04-19T13:30:51+08:00</lastmod>
->>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -85,15 +49,9 @@
   
     
     <url>
-<<<<<<< HEAD
       <loc>http://localhost:4000/collection/</loc>
       
-        <lastmod>2017-05-05T00:51:34+08:00</lastmod>
-=======
-      <loc>http://localhost:4000/</loc>
-      
-        <lastmod>2017-04-19T13:30:51+08:00</lastmod>
->>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -106,15 +64,9 @@
   
     
     <url>
-<<<<<<< HEAD
       <loc>http://localhost:4000/demo/</loc>
       
-        <lastmod>2017-05-05T00:51:34+08:00</lastmod>
-=======
-      <loc>http://localhost:4000/writing/</loc>
-      
-        <lastmod>2017-04-19T13:30:51+08:00</lastmod>
->>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -127,15 +79,9 @@
   
     
     <url>
-<<<<<<< HEAD
       <loc>http://localhost:4000/about/</loc>
       
-        <lastmod>2017-05-05T00:51:34+08:00</lastmod>
-=======
-      <loc>http://localhost:4000/search/</loc>
-      
-        <lastmod>2017-04-19T13:30:51+08:00</lastmod>
->>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -148,15 +94,9 @@
   
     
     <url>
-<<<<<<< HEAD
       <loc>http://localhost:4000/feed.xml</loc>
       
-        <lastmod>2017-05-05T00:51:34+08:00</lastmod>
-=======
-      <loc>http://localhost:4000/about/</loc>
-      
-        <lastmod>2017-04-19T13:30:51+08:00</lastmod>
->>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -169,15 +109,24 @@
   
     
     <url>
-<<<<<<< HEAD
+      <loc>http://localhost:4000/feed0.xml</loc>
+      
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
+      
+      
+        <changefreq>monthly</changefreq>
+      
+      
+        <priority>0.3</priority>
+      
+    </url>
+    
+  
+    
+    <url>
       <loc>http://localhost:4000/</loc>
       
-        <lastmod>2017-05-05T00:51:34+08:00</lastmod>
-=======
-      <loc>http://localhost:4000/store/</loc>
-      
-        <lastmod>2017-04-19T13:30:51+08:00</lastmod>
->>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
@@ -190,15 +139,9 @@
   
     
     <url>
-<<<<<<< HEAD
       <loc>http://localhost:4000/css/main.css</loc>
       
-        <lastmod>2017-05-05T00:51:34+08:00</lastmod>
-=======
-      <loc>http://localhost:4000/pages/search/search.json</loc>
-      
-        <lastmod>2017-04-19T13:30:51+08:00</lastmod>
->>>>>>> dba047bafab8e7a2338f6a0162db352514cbc63b
+        <lastmod>2017-05-05T00:48:42+08:00</lastmod>
       
       
         <changefreq>monthly</changefreq>
