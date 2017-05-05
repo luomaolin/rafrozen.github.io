@@ -207,26 +207,26 @@
 <p>在这里不介绍了 会给相应图片展示
 直接给我实验报告的链接</p>
 
-<p><a href="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/c7wan.pdf">基于空间光调制器的光学实验</a></p>
+<p><a href="../store/c7wan.pdf">基于空间光调制器的光学实验</a></p>
 
 <h2 id="模拟展示">模拟展示</h2>
 <p>平行光成像</p>
 
-<p><img src="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/透镜畸变和滤波/平行光.png" alt="平行光成像" /></p>
+<p><img src="../store/透镜畸变和滤波/平行光.png" alt="平行光成像" /></p>
 
 <p>点光源成像</p>
 
-<p><img src="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/透镜畸变和滤波/点光源.png" alt="点光源成像" /></p>
+<p><img src="../store/透镜畸变和滤波/点光源.png" alt="点光源成像" /></p>
 
 <p>焦距随 <script type="math/tex">y_0</script>的变化曲线(<script type="math/tex">y_0</script>为光线离透镜光轴的距离)</p>
 
-<p><img src="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/透镜畸变和滤波/焦距.png" alt="焦距随的变化曲线" /></p>
+<p><img src="../store/透镜畸变和滤波/焦距.png" alt="焦距随的变化曲线" /></p>
 
 <h2 id="光学系统的畸变">光学系统的畸变</h2>
 
 <p>畸变分两种:桶形畸变和枕形畸变</p>
 
-<p><img src="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/透镜畸变和滤波/畸形类型.png" alt="畸变" /></p>
+<p><img src="../store/透镜畸变和滤波/畸形类型.png" alt="畸变" /></p>
 
 <h3 id="mathematica-模拟原理及结果">mathematica 模拟原理及结果</h3>
 
@@ -244,31 +244,48 @@
 
 <p>变换的 i 图像为 6 乘 8 的棋盘格</p>
 
-<p><img src="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/透镜畸变和滤波/棋盘格.png" alt="6 乘 8 的棋盘格" /></p>
+<p><img src="../store/透镜畸变和滤波/棋盘格.png" alt="6 乘 8 的棋盘格" /></p>
 
 <p>模拟出来的畸变:</p>
 
-<p><img src="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/透镜畸变和滤波/枕形畸变.png" alt="枕形畸变" /></p>
+<p><img src="../store/透镜畸变和滤波/枕形畸变.png" alt="枕形畸变" /></p>
 
 <h2 id="滤波">滤波</h2>
 <p>只要调用滤波函数就可以了</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>Manipulate[LowpassFilter[i,c],{c,0,2}]
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="n">Manipulate</span><span class="p">[</span><span class="n">LowpassFilter</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">c</span><span class="p">],{</span><span class="n">c</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">}]</span>
 </code></pre>
 </div>
 <p>当 c=0.03 近似认为是只让零级光点通过</p>
 
-<p><img src="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/透镜畸变和滤波/零级光点.png" alt="零级光点" /></p>
+<p><img src="../store/透镜畸变和滤波/零级光点.png" alt="零级光点" /></p>
 
 <p>当 c=0.1,近似认为是只让零级光点和一级光点通过</p>
 
-<p><img src="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/透镜畸变和滤波/零级和一级光点.png" alt="零级和一级光点" /></p>
+<p><img src="../store/透镜畸变和滤波/零级和一级光点.png" alt="零级和一级光点" /></p>
 
 <p>当 c=0.3 时,近似认为让零级光点和一级光点和二级光点通过</p>
 
-<p><img src="https://github.com/rafrozen/rafrozen.github.io/tree/master/store/透镜畸变和滤波/零级和一二级光点.png" alt="零级和一二级光点" /></p>
+<p><img src="../store/透镜畸变和滤波/零级和一二级光点.png" alt="零级和一二级光点" /></p>
 
 <h2 id="mathematica-模拟傅立叶变换">Mathematica 模拟傅立叶变换</h2>
 <p>用 mathematica 求出透射光栅的傅立叶变换以及实际采集的 128T 一维光栅和理论图像的 32T 一维光栅的傅立叶变换(其中 32T 一维光栅由于是连续的图像,所以生成的傅立叶变换是在 x 轴上面的一系列的亮点,亮点比较小,所以截图主要是截相应的区域)</p>
+
+<p>code:</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>picdata=i//ImageData;
+picFourier=Fourier[picdata*PadRight[,Most[picdata//Dimensions],{ {1,-1},{-1,1} }]]//Abs//Image
+</code></pre>
+</div>
+<p>空间调制器使用的 32T 条纹的傅立叶变换图像:</p>
+
+<p><img src="../store/透镜畸变和滤波/32T 条纹的傅立叶变换图像.png" alt="32T 条纹的傅立叶变换图像" /></p>
+
+<p>透射光栅傅立叶图像</p>
+
+<p><img src="../store/透镜畸变和滤波/透射光栅傅立叶图像.png" alt="透射光栅傅立叶图像" /></p>
+
+<p>128T 实验观测的图像傅立叶变换</p>
+
+<p><img src="../store/透镜畸变和滤波/128T 实验观测的图像傅立叶变换.png" alt="128T 实验观测的图像傅立叶变换" /></p>
 
                 </div>
                 <div class="read-all">
