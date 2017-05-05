@@ -122,8 +122,6 @@
                 
                     
                 
-                    
-                
             </ul>
         </nav>
     </div>
@@ -136,6 +134,570 @@
         <small> </small>
         <hr>
         <ul>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2017/04/10/ssh%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">ssh反向代理</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2017-04-10
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#linux" title="Category: linux" rel="category">linux</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#ssh" title="Tag: ssh" rel="tag">ssh</a>&nbsp;
+    
+        <a href="/tag/#反向代理" title="Tag: 反向代理" rel="tag">反向代理</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    <ul id="markdown-toc">
+  <li><a href="#使用ssh反向代理进入内网" id="markdown-toc-使用ssh反向代理进入内网">使用ssh反向代理进入内网</a>    <ul>
+      <li><a href="#机器环境" id="markdown-toc-机器环境">机器环境</a></li>
+      <li><a href="#软件环境要求" id="markdown-toc-软件环境要求">软件环境要求</a></li>
+      <li><a href="#method" id="markdown-toc-method">method</a></li>
+      <li><a href="#ssh-用到的参数" id="markdown-toc-ssh-用到的参数">ssh 用到的参数</a></li>
+      <li><a href="#注意" id="markdown-toc-注意">注意</a></li>
+      <li><a href="#使用autossh防止掉线" id="markdown-toc-使用autossh防止掉线">使用autossh，防止掉线</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="使用ssh反向代理进入内网">使用ssh反向代理进入内网</h1>
+<h2 id="机器环境">机器环境</h2>
+<ol>
+  <li>A：内网服务器，IP 1.1.1.1，能正常链接外网</li>
+  <li>B：外网服务器，IP 9.9.9.9，拥有公网IP，不能访问A</li>
+  <li>C：终端，个人电脑，能正常访问互联网，能访问B，不能访问A
+    <h2 id="软件环境要求">软件环境要求</h2>
+    <p>A和B均需要开启ssh</p>
+    <h2 id="method">method</h2>
+    <p>登陆<strong>A机器</strong>执行以下命令</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code>ssh -fCNR &lt;port_B1&gt;:Alocalhost:&lt;port_A&gt; usr_in_b@9.9.9.9
+</code></pre>
+    </div>
+    <p><code class="highlighter-rouge">&lt;port_B1&gt;</code>是B与A反向链接的端口，可以使用大于1024的端口</p>
+  </li>
+</ol>
+
+<p>运行完此命令后，可以登陆B执行命令<code class="highlighter-rouge">ss -nat </code>可以在<code class="highlighter-rouge">Local Address:Port</code>看到<code class="highlighter-rouge">127.0.0.1:&lt;port_B1&gt;</code>，说明在B机器上已经开始A与B已经建立了反向代理。
+其实现在登陆B主机就可以使用<code class="highlighter-rouge">ssh user_In_A@127.0.0.1 -p &lt;port_B1&gt;</code>登陆A主机了，但是我们想直接登陆A主机，所以我们还需要做一次本地转发，方法如下: 登陆B机器执行以下命令</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh -fCNL *:&lt;part_B2&gt;:127.0.0.1:&lt;port_B1&gt; user_in_b@Blocalhost
+</code></pre>
+</div>
+<h2 id="ssh-用到的参数">ssh 用到的参数</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>-f 后台运行
+
+-C 允许压缩数据
+
+-N 不执行任何命令
+
+-R 将端口绑定到远程服务器，反向代理
+
+-L 将端口绑定到本地客户端，正向代理
+</code></pre>
+</div>
+<h2 id="注意">注意</h2>
+<p>把内网主机暴露在公网会对整个内网造成安全威胁，注意使用高强度密码和强安全策略。</p>
+
+<h2 id="使用autossh防止掉线">使用autossh，防止掉线</h2>
+<p>直接使用ssh转发经常会因为网络原因造成掉线，导致无法远程登陆，这是就需要使用autossh来确保A到B这条反向连接隧道不会掉线</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install -y autossh
+autossh -M 5000 -fNR &lt;port_b1&gt;:localhost:&lt;port_A&gt; usr_in_b@9.9.9.9
+
+-M 在远程主机开一个监听端口，探测是否掉线，掉线后重试链接
+</code></pre>
+</div>
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2017/04/10/ssh%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2017/04/01/geant4/">Geant4 常用代码</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2017-04-01
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#geant4" title="Category: geant4" rel="category">geant4</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#geant4" title="Tag: geant4" rel="tag">geant4</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    <ul id="markdown-toc">
+  <li><a href="#geant4-常用代码" id="markdown-toc-geant4-常用代码">Geant4 常用代码</a>    <ul>
+      <li><a href="#各种常用源粒子的产生" id="markdown-toc-各种常用源粒子的产生">各种常用源粒子的产生</a></li>
+      <li><a href="#获取日期记录程序开始运行的时刻" id="markdown-toc-获取日期记录程序开始运行的时刻">获取日期，记录程序开始运行的时刻</a></li>
+      <li><a href="#保存文件" id="markdown-toc-保存文件">保存文件</a></li>
+      <li><a href="#检查几何体是否重叠" id="markdown-toc-检查几何体是否重叠">检查几何体是否重叠</a></li>
+      <li><a href="#获取相关类的指针" id="markdown-toc-获取相关类的指针">获取相关类的指针</a></li>
+      <li><a href="#随机数操作" id="markdown-toc-随机数操作">随机数操作</a></li>
+      <li><a href="#把系统时间设置成每个geant4-run的初始随机数种子" id="markdown-toc-把系统时间设置成每个geant4-run的初始随机数种子">把系统时间设置成每个Geant4 run的初始随机数种子</a></li>
+      <li><a href="#从g4step中读取有用的信息-cnscott的博客" id="markdown-toc-从g4step中读取有用的信息-cnscott的博客">从G4Step中读取有用的信息 cnscott的博客</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>参考了<a href="http://wangyillang.blog.163.com/blog/static/19194738220123185168113/">汲汲求索</a></p>
+<h1 id="geant4-常用代码">Geant4 常用代码</h1>
+<h2 id="各种常用源粒子的产生">各种常用源粒子的产生</h2>
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="n">G4ParticleTable</span><span class="o">*</span> <span class="n">particleTable</span> <span class="o">=</span> <span class="n">G4ParticleTable</span><span class="o">::</span><span class="n">GetParticleTable</span><span class="p">();</span><span class="c1">// 光子：
+</span><span class="n">G4ParticleDefinition</span><span class="o">*</span> <span class="n">particle</span>  <span class="o">=</span> <span class="n">particleTable</span><span class="o">-&gt;</span><span class="n">FindParticle</span><span class="p">(</span><span class="s">"gamma"</span><span class="p">);</span><span class="c1">// 中子：
+</span><span class="n">G4ParticleDefinition</span><span class="o">*</span> <span class="n">particle</span><span class="o">=</span> <span class="n">particleTable</span><span class="o">-&gt;</span><span class="n">FindParticle</span><span class="p">(</span><span class="s">"neutron"</span><span class="p">);</span><span class="c1">//电子：
+</span><span class="n">G4ParticleDefinition</span><span class="o">*</span> <span class="n">particle</span><span class="o">=</span> <span class="n">particleTable</span><span class="o">-&gt;</span><span class="n">FindParticle</span><span class="p">(</span><span class="s">"e-"</span><span class="p">);</span><span class="c1">//Alpha：
+</span><span class="n">G4ParticleDefinition</span><span class="o">*</span> <span class="n">particle</span><span class="o">=</span> <span class="n">particleTable</span><span class="o">-&gt;</span><span class="n">FindParticle</span><span class="p">(</span><span class="s">"alpha"</span><span class="p">);</span><span class="c1">//质子：
+</span><span class="n">G4ParticleDefinition</span><span class="o">*</span> <span class="n">particle</span>  <span class="o">=</span> <span class="n">particleTable</span><span class="o">-&gt;</span><span class="n">FindParticle</span><span class="p">(</span><span class="s">"proton"</span><span class="p">);</span><span class="c1">//  离子：
+</span><span class="n">G4ParticleDefinition</span><span class="o">*</span> <span class="n">particle</span>  <span class="o">=</span> <span class="n">particleTable</span><span class="o">-&gt;</span><span class="n">GetIon</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span><span class="c1">//原子序数，质量数和激发能量(基态12C）
+</span>  <span class="c1">//源粒子的能量、位置、方向、电荷等相关信息要在ParticleGun中设置。
+</span></code></pre>
+</div>
+<h2 id="获取日期记录程序开始运行的时刻">获取日期，记录程序开始运行的时刻</h2>
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp">#include "time.h"
+#include "stdio.h"
+</span><span class="k">struct</span> <span class="n">tm</span> <span class="o">*</span><span class="n">ptr</span><span class="p">;</span>
+<span class="kt">time_t</span> <span class="n">lt</span><span class="p">;</span>
+<span class="n">lt</span> <span class="o">=</span><span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="n">ptr</span><span class="o">=</span><span class="n">gmtime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">);</span>
+<span class="n">printf</span><span class="p">(</span><span class="n">asctime</span><span class="p">(</span><span class="n">ptr</span><span class="p">));</span> <span class="c1">//格林威治时间
+</span><span class="n">printf</span><span class="p">(</span><span class="n">ctime</span><span class="p">(</span><span class="o">&amp;</span><span class="n">lt</span><span class="p">));</span>   <span class="c1">//本地时间
+</span>
+<span class="c1">//记录程序运行所用时间
+</span>
+<span class="cp">#include "G4Timer.hh"
+</span><span class="n">G4Timer</span> <span class="n">myTimer</span><span class="p">;</span>
+<span class="n">myTimer</span><span class="p">.</span><span class="n">Start</span><span class="p">();</span>
+<span class="n">myTimer</span><span class="p">.</span><span class="n">Stop</span><span class="p">();</span>
+<span class="n">G4cout</span> <span class="o">&lt;&lt;</span> <span class="n">myTimer</span> <span class="o">&lt;&lt;</span> <span class="n">G4endl</span><span class="p">;</span>
+</code></pre>
+</div>
+<h2 id="保存文件">保存文件</h2>
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp">#include &lt;fstream&gt;
+</span><span class="n">fstream</span> <span class="n">dataFile</span><span class="p">(</span><span class="n">FileName</span><span class="p">,</span> <span class="n">ios</span><span class="o">::</span><span class="n">out</span><span class="p">);</span> <span class="c1">//文件输出流
+</span><span class="n">G4String</span> <span class="n">mydata</span><span class="o">=</span><span class="err">”</span><span class="n">Save</span> <span class="n">my</span> <span class="n">data</span><span class="p">.</span><span class="err">”</span><span class="p">;</span>
+<span class="n">dataFile</span> <span class="o">&lt;&lt;</span> <span class="n">mydata</span> <span class="o">&lt;&lt;</span> <span class="n">G4endl</span><span class="p">;</span> <span class="c1">//数据可以是整数、浮点数或是字符串等。
+</span></code></pre>
+</div>
+<h2 id="检查几何体是否重叠">检查几何体是否重叠</h2>
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="n">G4PVPlacement</span><span class="err">和</span><span class="n">G4PVParameterised</span><span class="err">提供了成员函数</span><span class="o">:</span>
+<span class="n">G4bool</span> <span class="n">CheckOverlaps</span><span class="p">(</span><span class="n">G4int</span> <span class="n">res</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">G4double</span> <span class="n">tol</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">G4bool</span> <span class="n">verbose</span><span class="o">=</span><span class="nb">true</span><span class="p">)</span>
+<span class="c1">//当返回值为true时，表明几何存在重叠。
+</span></code></pre>
+</div>
+<h2 id="获取相关类的指针">获取相关类的指针</h2>
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="n">G4RunManager</span><span class="o">*</span> <span class="n">runManager</span><span class="o">=</span> <span class="n">G4RunManager</span><span class="o">::</span><span class="n">GetRunManager</span><span class="p">();</span>
+<span class="p">(</span><span class="n">MyRunAction</span> <span class="o">*</span><span class="p">)</span><span class="n">runManager</span><span class="o">-&gt;</span><span class="n">GetUserRunAction</span><span class="p">();</span>
+<span class="p">(</span><span class="n">MyEventAction</span> <span class="o">*</span><span class="p">)</span><span class="n">runManager</span><span class="o">-&gt;</span><span class="n">GetUserEventAction</span><span class="p">();</span>
+<span class="p">(</span><span class="n">MyStackingAction</span> <span class="o">*</span><span class="p">)</span><span class="n">runManager</span><span class="o">-&gt;</span><span class="n">GetUserStackingAction</span><span class="p">();</span>
+<span class="p">(</span><span class="n">MySteppingAction</span> <span class="o">*</span><span class="p">)</span><span class="n">runManager</span><span class="o">-&gt;</span><span class="n">GetUserSteppingAction</span><span class="p">();</span>
+<span class="p">(</span><span class="n">MyTrackingAction</span> <span class="o">*</span><span class="p">)</span><span class="n">runManager</span><span class="o">-&gt;</span><span class="n">GetUserTrackingAction</span><span class="p">();</span>
+
+<span class="n">G4Run</span><span class="o">*</span> <span class="n">run</span> <span class="o">=</span> <span class="n">G4RunManager</span><span class="o">::</span><span class="n">GetRunManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCurrentRun</span><span class="p">();</span>
+<span class="n">G4Event</span><span class="o">*</span> <span class="n">event</span> <span class="o">=</span> <span class="n">G4RunManager</span><span class="o">::</span><span class="n">GetRunManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetCurrentEvent</span><span class="p">();</span>
+<span class="c1">//版本号
+</span><span class="n">G4String</span> <span class="n">version</span> <span class="o">=</span> <span class="n">G4RunManager</span><span class="o">::</span><span class="n">GetRunManager</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetVersionString</span><span class="p">()</span>
+</code></pre>
+</div>
+<h2 id="随机数操作">随机数操作</h2>
+<p>Geant4的随机数产生主要是使用CLHEP函数库。</p>
+
+<p><a href="http://proj-clhep.web.cern.ch/proj-clhep/manual/UserGuide/Random/Random.html">CLHEP函数库</a></p>
+
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="n">CLHEP</span><span class="o">::</span><span class="n">HepRandom</span><span class="o">::</span><span class="n">setTheEngine</span><span class="p">(</span><span class="n">HepRandomEngine</span> <span class="o">*</span><span class="n">theNewEngine</span><span class="p">);</span>
+<span class="c1">//设置随机数引擎，默认引擎为CLHEP::HepJamesRandom。其他可选的引擎包括：
+</span><span class="n">CLHEP</span><span class="o">::</span><span class="n">DRand48Engine</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">DualRand</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">Hurd160Engine</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">Hurd288Engine</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">MTwistEngine</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">NonRandomEngine</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">RandEngine</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">RanecuEngine</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">Ranlux64Engine</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">RanluxEngine</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">RanshiEngine</span>
+<span class="n">and</span> <span class="n">CLHEP</span><span class="o">::</span><span class="n">TripleRand</span>
+
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">HepRandom</span><span class="o">::</span><span class="n">setTheSeed</span><span class="p">(</span><span class="kt">long</span> <span class="n">seed</span><span class="p">,</span> <span class="kt">int</span> <span class="n">lux</span><span class="o">=</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//为默认引擎设置随机数种子，其他引擎可能使用不同函数
+</span>
+<span class="n">G4UniformRand</span><span class="p">();</span>
+<span class="c1">//产生均匀分布随机数，等同于CLHEP::HepRandom::getTheEngine()-&gt;flat();
+</span>
+<span class="n">G4RandGauss</span><span class="o">::</span><span class="n">shoot</span><span class="p">(</span><span class="kt">double</span> <span class="n">mean</span><span class="p">,</span> <span class="kt">double</span> <span class="n">stdDev</span><span class="p">);</span>
+<span class="c1">//产生高斯分布随机数，等同于CLHEP::RandGaussQ::shoot(double mean, double stdDev);
+</span></code></pre>
+</div>
+
+<h2 id="把系统时间设置成每个geant4-run的初始随机数种子">把系统时间设置成每个Geant4 run的初始随机数种子</h2>
+
+<p>main函数所在文件加入如下头文件：</p>
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="cp">#include "Randomize.hh"
+#include "time.h"
+</span></code></pre>
+</div>
+
+<p>然后在main函数里面加入：</p>
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="c1">//先选这个随机数引擎，如果不选，默认是HepJamesRandom那个引擎。
+</span><span class="n">CLHEP</span><span class="o">::</span><span class="n">HepRandom</span><span class="o">::</span><span class="n">setTheEngine</span><span class="p">(</span><span class="k">new</span> <span class="n">CLHEP</span><span class="o">::</span><span class="n">RanecuEngine</span><span class="p">());</span>
+<span class="c1">//设定随机数种子
+</span><span class="n">G4long</span> <span class="n">seed</span> <span class="o">=</span> <span class="n">time</span><span class="p">(</span><span class="nb">NULL</span><span class="p">);</span>
+<span class="n">CLHEP</span><span class="o">::</span><span class="n">HepRandom</span><span class="o">::</span><span class="n">setTheSeed</span><span class="p">(</span><span class="n">seed</span><span class="p">);</span>
+
+</code></pre>
+</div>
+
+<p>用了这些代码以后，即使每次run相同数目的events，得到的模拟结果也不会再相同了。</p>
+<h2 id="从g4step中读取有用的信息-cnscott的博客">从G4Step中读取有用的信息 cnscott的博客</h2>
+<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="kt">void</span> <span class="n">MySteppingAction</span><span class="o">::</span><span class="n">UserSteppingAction</span><span class="p">(</span><span class="k">const</span> <span class="n">G4Step</span><span class="o">*</span> <span class="n">stp</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="n">G4Track</span><span class="o">*</span> <span class="n">theTrack</span> <span class="o">=</span> <span class="n">stp</span><span class="o">-&gt;</span><span class="n">GetTrack</span><span class="p">();</span> <span class="c1">//获取G4Track指针
+</span><span class="n">theTrack</span><span class="o">-&gt;</span><span class="n">GetVolume</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">GetName</span><span class="p">();</span> <span class="c1">//获取当前几何体（PhysicalVolume）名称
+</span>
+<span class="n">G4StepPoint</span><span class="o">*</span>  <span class="n">preStepPoint</span> <span class="o">=</span> <span class="n">stp</span><span class="o">-&gt;</span><span class="n">GetPreStepPoint</span><span class="p">();</span>
+<span class="n">G4StepPoint</span><span class="o">*</span> <span class="n">postStepPoint</span> <span class="o">=</span> <span class="n">stp</span><span class="o">-&gt;</span><span class="n">GetPostStepPoint</span><span class="p">();</span> <span class="c1">//获取两个StepPoint的指针
+</span><span class="k">if</span> <span class="p">(</span><span class="n">preStepPoint</span><span class="o">-&gt;</span><span class="n">GetStepStatus</span><span class="p">()</span> <span class="o">==</span> <span class="n">fGeomBoundary</span><span class="p">)</span>  <span class="c1">//判断是否位于几何体边界
+</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Step starts on geometry boundary"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">postStepPoint</span><span class="o">-&gt;</span><span class="n">GetStepStatus</span><span class="p">()</span> <span class="o">==</span> <span class="n">fGeomBoundary</span><span class="p">)</span> <span class="c1">//判断是否位于几何体边界
+</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Step ends on geometry boundary"</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">theTrack</span><span class="o">-&gt;</span><span class="n">GetTrackID</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1">//判断是否是初级粒子（初级粒子TrackID=1）
+</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Particle is a primary "</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="err">；</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">theTrack</span><span class="o">-&gt;</span><span class="n">GetParentID</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1">//判断当前粒子是否由初级粒子产生
+</span><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"Parent was a primary "</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+
+<span class="n">G4VProcess</span><span class="o">*</span> <span class="n">creatorProcess</span><span class="o">=</span> <span class="n">track</span><span class="o">-&gt;</span><span class="n">GetCreatorProcess</span><span class="p">();</span>
+<span class="n">G4cout</span> <span class="o">&lt;&lt;</span> <span class="n">creatorProcess</span><span class="o">-&gt;</span><span class="n">GetProcessName</span><span class="p">()</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> <span class="c1">//获取产生当前粒子的物理过程名称
+</span>
+<span class="n">G4TouchableHandle</span> <span class="n">theTouchable</span> <span class="o">=</span> <span class="n">preStepPoint</span><span class="o">-&gt;</span><span class="n">GetTouchableHandle</span><span class="p">();</span>
+<span class="n">theTouchable</span><span class="o">-&gt;</span><span class="n">GetCopyNumber</span><span class="p">();</span> <span class="c1">//当前几何体的Copy Number
+</span><span class="n">theTouchable</span><span class="o">-&gt;</span><span class="n">GetCopyNumber</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">//当前几何体母体的Copy Number
+</span><span class="n">theTouchable</span><span class="o">-&gt;</span><span class="n">GetCopyNumber</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="c1">//当前几何体母体的母体的Copy Number，以此类推，前提是该母体是存在的，否则可能抛出异常
+</span><span class="p">}</span>
+</code></pre>
+</div>
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2017/04/01/geant4/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2017/03/23/markdown/">Markdown备忘</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2017-03-23
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#备忘" title="Category: 备忘" rel="category">备忘</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <a href="/tag/#markdown" title="Tag: markdown" rel="tag">markdown</a>&nbsp;
+    
+        <a href="/tag/#备忘" title="Tag: 备忘" rel="tag">备忘</a>
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    <ul id="markdown-toc">
+  <li><a href="#markdown" id="markdown-toc-markdown">Markdown</a>    <ul>
+      <li><a href="#插入数学公式" id="markdown-toc-插入数学公式">插入数学公式</a></li>
+      <li><a href="#picture" id="markdown-toc-picture">picture</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="markdown">Markdown</h1>
+<h2 id="插入数学公式">插入数学公式</h2>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code>//using google chart service
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"http://chart.googleapis.com/chart?cht=tx&amp;ch1=在此插入latex公式"</span> <span class="na">style=</span><span class="s">"border:none:"</span><span class="nt">&gt;</span>
+// using forkosh service
+<span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"http://www.forkdosh.com/mathtex.cgi?在此处插入latex公式"</span><span class="nt">&gt;</span>
+// MathJax
+<span class="nt">&lt;srcipt</span> <span class="na">type=</span><span class="s">"text/javascript"</span> <span class="na">src=</span><span class="s">"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre>
+</div>
+
+<h2 id="picture">picture</h2>
+
+<div class="language-html highlighter-rouge"><pre class="highlight"><code>![test](http://)
+</code></pre>
+</div>
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2017/03/23/markdown/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
+            
+              <li>
+                <h2>
+                  <a class="post-link" href="/2016/10/05/%E9%A9%AC%E8%B5%AB%E6%9B%BE%E5%BE%B7%E5%B9%B2%E6%B6%89/">马赫曾德干涉显微观测</a>
+                </h2>
+                <div class="label">
+                    <div class="label-card">
+                        <i class="fa fa-calendar"></i>2016-10-05
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+                    <div class="label-card">
+                        
+                    </div>
+
+                    <div class="label-card">
+                    
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#物理" title="Category: 物理" rel="category">物理</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+                    </div>
+
+                    <div class="label-card">
+                    
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+  
+
+</span>
+
+                    </div>
+                </div>
+                <div class="excerpt">
+                    <ul id="markdown-toc">
+  <li><a href="#实验原理" id="markdown-toc-实验原理">实验原理</a>    <ul>
+      <li><a href="#干涉原理" id="markdown-toc-干涉原理">干涉原理</a>        <ul>
+          <li><a href="#模拟倾斜的斜坡" id="markdown-toc-模拟倾斜的斜坡">模拟倾斜的斜坡</a></li>
+        </ul>
+      </li>
+      <li><a href="#相位解包" id="markdown-toc-相位解包">相位解包</a></li>
+      <li><a href="#血细胞仿真模拟" id="markdown-toc-血细胞仿真模拟">血细胞仿真模拟</a></li>
+      <li><a href="#实验结果" id="markdown-toc-实验结果">实验结果</a></li>
+    </ul>
+  </li>
+</ul>
+
+<p>这是广东省物理实验比赛时候, 从自己找文献到做实验, 实验失败, 找文献, 最后有一个比较可以的结果, 也算可以结题了:)</p>
+
+<p>一开始的目的是我们想测量手机像素点的大小和高度, 用迈克尔逊干涉仪, 但是发现反射率太低了, 根本看不到干涉图样.</p>
+
+<p>不过很好玩的一点是: 当我们用酒精清洗一面反射镜的时候, 看到干涉图样随着酒精蒸发而发生改变, 于是我们就用酒精多擦了几遍玩.</p>
+
+<p>后来找了许多材料测量, 反射率都不是很好. 而且基础物理实验室的仪器已经有点脏了, 后来去了专业的实验室.</p>
+
+<p>改成透射型的马赫曾德干涉, 测量生物样品的光路.</p>
+
+<h2 id="实验原理">实验原理</h2>
+
+<p>实验原理图(样品放中心焦点)</p>
+
+<p><img src="../store/干涉/实验原理图.png" alt="实验原理图" /></p>
+
+<p>实验中使用两个放大倍率相同的透镜使之共焦,将样品放于焦平面上,令透镜的主轴与光束重合,前一个透镜将光束聚集到生物体的一小块区域上,后一个透镜对聚焦光点处的生物体放大,含放大细胞信息的物光和参考光相干得到干涉条纹。</p>
+
+<p>共焦放大原理图</p>
+
+<p><img src="../store/干涉/共焦放大原理图.png" alt="共焦放大原理图" /></p>
+
+<h3 id="干涉原理">干涉原理</h3>
+<p>干涉测量是基于光波叠加原理,在干涉场中产生亮暗交替的干涉条纹,通过分析处理干涉条纹来获取被测量的有关信息。当两束光满足频率一致,振动方向相同以及初始相位差恒定的条件,就会发生干涉。干涉场中任一点的合成光强为:</p>
+
+<script type="math/tex; mode=display">I=I_R+I_S+2\sqrt{I_RI_S}cos\frac{2\pi}{\lambda}\Lambda</script>
+
+<p>其中, <script type="math/tex">\Lambda</script>为两束光到达同一点的光程差, <script type="math/tex">I_R</script>和<script type="math/tex">I_S</script>分别为参考光和物光的光强, <script type="math/tex">\lambda</script>为光波长。</p>
+<h4 id="模拟倾斜的斜坡">模拟倾斜的斜坡</h4>
+<p>利用 matlab 可以很轻松地做到, 一些参数说明</p>
+<ol>
+  <li>波长650nm</li>
+  <li>表面抛光的反射型光学元件</li>
+</ol>
+
+<p>给出相位分布和干涉图样</p>
+
+<p>相位分布</p>
+
+<p><img src="../store/干涉/斜坡.png" alt="相位分布" /></p>
+
+<p>干涉图样</p>
+
+<p><img src="../store/干涉/斜坡gan.png" alt="干涉图样" /></p>
+
+<h3 id="相位解包">相位解包</h3>
+<p>待测物光波与参考光波干涉形成的干涉条纹强度分布在宏观或微观上具有正余弦函数分布。从干涉条纹强度分布提取物光波相位信息时,受三角函数周期性及主值区间的限制,所提取的相位信息在数值上总是在<script type="math/tex">-\pi</script>到<script type="math/tex">\pi</script>之间,称之为包裹相位。当待测物光波的实际相位差变化幅值大于<script type="math/tex">2\pi</script>或实际光程差变化大于波长时,所得到的包裹相位分布不是待测物光波真实的相位分布,由此包裹相位不能够得到待测物体的实际特征信息,此时就需要特殊的相位解包技术。</p>
+
+<p>当时由于知识有限, 于是采取一个无脑的办法–条纹中心法</p>
+
+<p>条纹中心法的处理过程:</p>
+
+<ol>
+  <li>预处理,我们利用二值化。</li>
+  <li>条纹中心法的检测,从理论上来说,检测条纹中心即为沿条纹的法向方向来寻求条纹亮度的极大(小)值点。我们利用 matlab 自带寻峰函数确定亮纹和暗纹的中心点</li>
+</ol>
+
+<p>下面就模拟了血细胞的仿真</p>
+<h3 id="血细胞仿真模拟">血细胞仿真模拟</h3>
+<p>红细胞模型及其干涉条纹 单位:<script type="math/tex">\mu m</script></p>
+
+<p><img src="../store/干涉/红细胞模型及其干涉条纹.png" alt="红细胞模型及其干涉条纹" /></p>
+
+<p>二值化的结果</p>
+
+<p><img src="../store/干涉/二值化.png" alt="二值化" /></p>
+
+<p>相位提取的结果</p>
+
+<p><img src="../store/干涉/相位提取.png" alt="相位提取" /></p>
+
+<p>血细胞实验仿真处理结果(当时没有时间,现在懒, 所以只做了相位还原)</p>
+
+<p><img src="../store/干涉/仿真处理结果.png" alt="仿真处理结果" /></p>
+
+<h3 id="实验结果">实验结果</h3>
+
+<p>其实不妨说做了很多实验, 拍了许多照片, 能用的还是不多</p>
+
+<p><img src="../store/干涉/实验图片.png" alt="实验图片" /></p>
+
+<p>matlab 处理的结果</p>
+
+<p><img src="../store/干涉/实验结果.png" alt="实验结果" /></p>
+
+                </div>
+                <div class="read-all">
+                    <a  href="/2016/10/05/%E9%A9%AC%E8%B5%AB%E6%9B%BE%E5%BE%B7%E5%B9%B2%E6%B6%89/"><i class="fa fa-newspaper-o"></i>Read All</a>
+                </div>
+                <hr>
+              </li>
             
               <li>
                 <h2>
@@ -178,10 +740,6 @@
   <i class="fa fa-tags"></i>
   
     
-        <a href="/tag/#透镜" title="Tag: 透镜" rel="tag">透镜</a>&nbsp;
-    
-        <a href="/tag/#滤波" title="Tag: 滤波" rel="tag">滤波</a>&nbsp;
-    
         <a href="/tag/#mathematica" title="Tag: mathematica" rel="tag">mathematica</a>
     
   
@@ -200,6 +758,7 @@
   <li><a href="#滤波" id="markdown-toc-滤波">滤波</a></li>
   <li><a href="#mathematica-模拟傅立叶变换" id="markdown-toc-mathematica-模拟傅立叶变换">Mathematica 模拟傅立叶变换</a></li>
 </ul>
+
 <p>这是中山大学基础物理实验 C7 因为当时正在学习 mathematica, 所以拿这个实验练手.</p>
 
 <p>做实验报告的时候, 平行光入射透镜模拟, 点光源成像, 以及计算焦点与离光轴距离的函数都是直接复制其他人的代码,简单地进行 debug.</p>
@@ -207,7 +766,7 @@
 <p>在这里不介绍了 会给相应图片展示
 直接给我实验报告的链接</p>
 
-<p><a href="../store/c7wan.pdf">基于空间光调制器的光学实验</a></p>
+<p><a href="../store/透镜畸变和滤波/c7wan.pdf">基于空间光调制器的光学实验</a></p>
 
 <h2 id="模拟展示">模拟展示</h2>
 <p>平行光成像</p>
@@ -321,6 +880,14 @@ picFourier=Fourier[picdata*PadRight[,Most[picdata//Dimensions],{ {1,-1},{-1,1} }
                 </div>
                 <ul class="content-ul" recent>
                     
+                        <li><a href="/2017/04/10/ssh%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">ssh反向代理</a></li>
+                    
+                        <li><a href="/2017/04/01/geant4/">Geant4 常用代码</a></li>
+                    
+                        <li><a href="/2017/03/23/markdown/">Markdown备忘</a></li>
+                    
+                        <li><a href="/2016/10/05/%E9%A9%AC%E8%B5%AB%E6%9B%BE%E5%BE%B7%E5%B9%B2%E6%B6%89/">马赫曾德干涉显微观测</a></li>
+                    
                         <li><a href="/2016/05/04/%E9%80%8F%E9%95%9C%E7%95%B8%E5%8F%98%E5%92%8C%E6%BB%A4%E6%B3%A2/">透镜畸变和滤波</a></li>
                     
                 </ul>
@@ -338,6 +905,33 @@ picFourier=Fourier[picdata*PadRight[,Most[picdata//Dimensions],{ {1,-1},{-1,1} }
                         <a href="/category/#物理" class="categories-list-item" cate="物理">
                             <span class="name">
                                 物理
+                            </span>
+                            <span class="badge">2</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/category/#备忘" class="categories-list-item" cate="备忘">
+                            <span class="name">
+                                备忘
+                            </span>
+                            <span class="badge">1</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/category/#geant4" class="categories-list-item" cate="geant4">
+                            <span class="name">
+                                geant4
+                            </span>
+                            <span class="badge">1</span>
+                        </a>
+                    </li>
+                    
+                    <li>
+                        <a href="/category/#linux" class="categories-list-item" cate="linux">
+                            <span class="name">
+                                linux
                             </span>
                             <span class="badge">1</span>
                         </a>
@@ -365,21 +959,42 @@ picFourier=Fourier[picdata*PadRight[,Most[picdata//Dimensions],{ {1,-1},{-1,1} }
                       
                       
                       
-                      <a href="/tag/#透镜" style="font-size: 9pt; color: #999;">透镜</a>
-                    
-                      
-                      
-                      
-                      
-                      
-                      <a href="/tag/#滤波" style="font-size: 9pt; color: #999;">滤波</a>
-                    
-                      
-                      
-                      
-                      
-                      
                       <a href="/tag/#mathematica" style="font-size: 9pt; color: #999;">mathematica</a>
+                    
+                      
+                      
+                      
+                      
+                      
+                      <a href="/tag/#markdown" style="font-size: 9pt; color: #999;">markdown</a>
+                    
+                      
+                      
+                      
+                      
+                      
+                      <a href="/tag/#备忘" style="font-size: 9pt; color: #999;">备忘</a>
+                    
+                      
+                      
+                      
+                      
+                      
+                      <a href="/tag/#geant4" style="font-size: 9pt; color: #999;">geant4</a>
+                    
+                      
+                      
+                      
+                      
+                      
+                      <a href="/tag/#ssh" style="font-size: 9pt; color: #999;">ssh</a>
+                    
+                      
+                      
+                      
+                      
+                      
+                      <a href="/tag/#反向代理" style="font-size: 9pt; color: #999;">反向代理</a>
                     
                 </div>
             </div>

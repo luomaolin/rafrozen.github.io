@@ -5,9 +5,397 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 05 May 2017 13:28:20 +0800</pubDate>
-    <lastBuildDate>Fri, 05 May 2017 13:28:20 +0800</lastBuildDate>
+    <pubDate>Fri, 05 May 2017 21:22:00 +0800</pubDate>
+    <lastBuildDate>Fri, 05 May 2017 21:22:00 +0800</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
+    
+      <item>
+        <title>ssh反向代理</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#使用ssh反向代理进入内网&quot; id=&quot;markdown-toc-使用ssh反向代理进入内网&quot;&gt;使用ssh反向代理进入内网&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#机器环境&quot; id=&quot;markdown-toc-机器环境&quot;&gt;机器环境&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#软件环境要求&quot; id=&quot;markdown-toc-软件环境要求&quot;&gt;软件环境要求&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#method&quot; id=&quot;markdown-toc-method&quot;&gt;method&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#ssh-用到的参数&quot; id=&quot;markdown-toc-ssh-用到的参数&quot;&gt;ssh 用到的参数&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#注意&quot; id=&quot;markdown-toc-注意&quot;&gt;注意&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#使用autossh防止掉线&quot; id=&quot;markdown-toc-使用autossh防止掉线&quot;&gt;使用autossh，防止掉线&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;使用ssh反向代理进入内网&quot;&gt;使用ssh反向代理进入内网&lt;/h1&gt;
+&lt;h2 id=&quot;机器环境&quot;&gt;机器环境&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;A：内网服务器，IP 1.1.1.1，能正常链接外网&lt;/li&gt;
+  &lt;li&gt;B：外网服务器，IP 9.9.9.9，拥有公网IP，不能访问A&lt;/li&gt;
+  &lt;li&gt;C：终端，个人电脑，能正常访问互联网，能访问B，不能访问A
+    &lt;h2 id=&quot;软件环境要求&quot;&gt;软件环境要求&lt;/h2&gt;
+    A和B均需要开启ssh
+    &lt;h2 id=&quot;method&quot;&gt;method&lt;/h2&gt;
+    登陆&lt;strong&gt;A机器&lt;/strong&gt;执行以下命令
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh -fCNR &amp;lt;port_B1&amp;gt;:Alocalhost:&amp;lt;port_A&amp;gt; usr_in_b@9.9.9.9
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+    &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;port_B1&amp;gt;&lt;/code&gt;是B与A反向链接的端口，可以使用大于1024的端口
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+运行完此命令后，可以登陆B执行命令&lt;code class=&quot;highlighter-rouge&quot;&gt;ss -nat &lt;/code&gt;可以在&lt;code class=&quot;highlighter-rouge&quot;&gt;Local Address:Port&lt;/code&gt;看到&lt;code class=&quot;highlighter-rouge&quot;&gt;127.0.0.1:&amp;lt;port_B1&amp;gt;&lt;/code&gt;，说明在B机器上已经开始A与B已经建立了反向代理。
+其实现在登陆B主机就可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh user_In_A@127.0.0.1 -p &amp;lt;port_B1&amp;gt;&lt;/code&gt;登陆A主机了，但是我们想直接登陆A主机，所以我们还需要做一次本地转发，方法如下: 登陆B机器执行以下命令
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh -fCNL *:&amp;lt;part_B2&amp;gt;:127.0.0.1:&amp;lt;port_B1&amp;gt; user_in_b@Blocalhost
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;ssh-用到的参数&quot;&gt;ssh 用到的参数&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;-f 后台运行
+
+-C 允许压缩数据
+
+-N 不执行任何命令
+
+-R 将端口绑定到远程服务器，反向代理
+
+-L 将端口绑定到本地客户端，正向代理
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;注意&quot;&gt;注意&lt;/h2&gt;
+把内网主机暴露在公网会对整个内网造成安全威胁，注意使用高强度密码和强安全策略。
+
+&lt;h2 id=&quot;使用autossh防止掉线&quot;&gt;使用autossh，防止掉线&lt;/h2&gt;
+直接使用ssh转发经常会因为网络原因造成掉线，导致无法远程登陆，这是就需要使用autossh来确保A到B这条反向连接隧道不会掉线
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;apt-get install -y autossh
+autossh -M 5000 -fNR &amp;lt;port_b1&amp;gt;:localhost:&amp;lt;port_A&amp;gt; usr_in_b@9.9.9.9
+
+-M 在远程主机开一个监听端口，探测是否掉线，掉线后重试链接
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Mon, 10 Apr 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/04/10/ssh%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/04/10/ssh%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</guid>
+        
+        <category>ssh</category>
+        
+        <category>反向代理</category>
+        
+        
+        <category>linux</category>
+        
+      </item>
+    
+      <item>
+        <title>Geant4 常用代码</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#geant4-常用代码&quot; id=&quot;markdown-toc-geant4-常用代码&quot;&gt;Geant4 常用代码&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#各种常用源粒子的产生&quot; id=&quot;markdown-toc-各种常用源粒子的产生&quot;&gt;各种常用源粒子的产生&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#获取日期记录程序开始运行的时刻&quot; id=&quot;markdown-toc-获取日期记录程序开始运行的时刻&quot;&gt;获取日期，记录程序开始运行的时刻&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#保存文件&quot; id=&quot;markdown-toc-保存文件&quot;&gt;保存文件&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#检查几何体是否重叠&quot; id=&quot;markdown-toc-检查几何体是否重叠&quot;&gt;检查几何体是否重叠&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#获取相关类的指针&quot; id=&quot;markdown-toc-获取相关类的指针&quot;&gt;获取相关类的指针&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#随机数操作&quot; id=&quot;markdown-toc-随机数操作&quot;&gt;随机数操作&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#把系统时间设置成每个geant4-run的初始随机数种子&quot; id=&quot;markdown-toc-把系统时间设置成每个geant4-run的初始随机数种子&quot;&gt;把系统时间设置成每个Geant4 run的初始随机数种子&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#从g4step中读取有用的信息-cnscott的博客&quot; id=&quot;markdown-toc-从g4step中读取有用的信息-cnscott的博客&quot;&gt;从G4Step中读取有用的信息 cnscott的博客&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+参考了&lt;a href=&quot;http://wangyillang.blog.163.com/blog/static/19194738220123185168113/&quot;&gt;汲汲求索&lt;/a&gt;
+&lt;h1 id=&quot;geant4-常用代码&quot;&gt;Geant4 常用代码&lt;/h1&gt;
+&lt;h2 id=&quot;各种常用源粒子的产生&quot;&gt;各种常用源粒子的产生&lt;/h2&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;G4ParticleTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particleTable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4ParticleTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetParticleTable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// 光子：
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4ParticleDefinition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particle&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particleTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FindParticle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;gamma&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;// 中子：
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4ParticleDefinition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particleTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FindParticle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;neutron&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//电子：
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4ParticleDefinition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particleTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FindParticle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;e-&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//Alpha：
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4ParticleDefinition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particleTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FindParticle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;alpha&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//质子：
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4ParticleDefinition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particle&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particleTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FindParticle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;proton&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//  离子：
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4ParticleDefinition&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particle&lt;/span&gt;  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;particleTable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetIon&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;0.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;span class=&quot;c1&quot;&gt;//原子序数，质量数和激发能量(基态12C）
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//源粒子的能量、位置、方向、电荷等相关信息要在ParticleGun中设置。
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;获取日期记录程序开始运行的时刻&quot;&gt;获取日期，记录程序开始运行的时刻&lt;/h2&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &quot;time.h&quot;
+#include &quot;stdio.h&quot;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ptr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;time_t&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;lt&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;ptr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gmtime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;asctime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ptr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//格林威治时间
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ctime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;//本地时间
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//记录程序运行所用时间
+&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include &quot;G4Timer.hh&quot;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4Timer&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Stop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myTimer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;保存文件&quot;&gt;保存文件&lt;/h2&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;fstream&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;fstream&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dataFile&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FileName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ios&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//文件输出流
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mydata&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Save&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;”&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;dataFile&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mydata&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//数据可以是整数、浮点数或是字符串等。
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;检查几何体是否重叠&quot;&gt;检查几何体是否重叠&lt;/h2&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;G4PVPlacement&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;和&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4PVParameterised&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;提供了成员函数&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CheckOverlaps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tol&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;0.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;verbose&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//当返回值为true时，表明几何存在重叠。
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;获取相关类的指针&quot;&gt;获取相关类的指针&lt;/h2&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;G4RunManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;runManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4RunManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetRunManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyRunAction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetUserRunAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyEventAction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetUserEventAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyStackingAction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetUserStackingAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MySteppingAction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetUserSteppingAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MyTrackingAction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;runManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetUserTrackingAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;G4Run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;run&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4RunManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetRunManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetCurrentRun&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4Event&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;event&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4RunManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetRunManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetCurrentEvent&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//版本号
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;version&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4RunManager&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetRunManager&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetVersionString&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;h2 id=&quot;随机数操作&quot;&gt;随机数操作&lt;/h2&gt;
+Geant4的随机数产生主要是使用CLHEP函数库。
+
+&lt;a href=&quot;http://proj-clhep.web.cern.ch/proj-clhep/manual/UserGuide/Random/Random.html&quot;&gt;CLHEP函数库&lt;/a&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HepRandom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setTheEngine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HepRandomEngine&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theNewEngine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//设置随机数引擎，默认引擎为CLHEP::HepJamesRandom。其他可选的引擎包括：
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DRand48Engine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DualRand&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hurd160Engine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Hurd288Engine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MTwistEngine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;NonRandomEngine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RandEngine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RanecuEngine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Ranlux64Engine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RanluxEngine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RanshiEngine&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;and&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;TripleRand&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HepRandom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setTheSeed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;lux&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//为默认引擎设置随机数种子，其他引擎可能使用不同函数
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4UniformRand&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//产生均匀分布随机数，等同于CLHEP::HepRandom::getTheEngine()-&amp;gt;flat();
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4RandGauss&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shoot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;double&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stdDev&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//产生高斯分布随机数，等同于CLHEP::RandGaussQ::shoot(double mean, double stdDev);
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;把系统时间设置成每个geant4-run的初始随机数种子&quot;&gt;把系统时间设置成每个Geant4 run的初始随机数种子&lt;/h2&gt;
+
+main函数所在文件加入如下头文件：
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#include &quot;Randomize.hh&quot;
+#include &quot;time.h&quot;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+然后在main函数里面加入：
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//先选这个随机数引擎，如果不选，默认是HepJamesRandom那个引擎。
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HepRandom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setTheEngine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;RanecuEngine&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//设定随机数种子
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;G4long&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seed&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;time&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;NULL&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;CLHEP&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;HepRandom&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;setTheSeed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+用了这些代码以后，即使每次run相同数目的events，得到的模拟结果也不会再相同了。
+&lt;h2 id=&quot;从g4step中读取有用的信息-cnscott的博客&quot;&gt;从G4Step中读取有用的信息 cnscott的博客&lt;/h2&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MySteppingAction&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;UserSteppingAction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;G4Step&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4Track&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theTrack&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetTrack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//获取G4Track指针
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theTrack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetVolume&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//获取当前几何体（PhysicalVolume）名称
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4StepPoint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;preStepPoint&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetPreStepPoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4StepPoint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;postStepPoint&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;stp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetPostStepPoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//获取两个StepPoint的指针
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;preStepPoint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetStepStatus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fGeomBoundary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//判断是否位于几何体边界
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Step starts on geometry boundary&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;postStepPoint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetStepStatus&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;fGeomBoundary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//判断是否位于几何体边界
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Step ends on geometry boundary&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theTrack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetTrackID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//判断是否是初级粒子（初级粒子TrackID=1）
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Particle is a primary &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;；&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theTrack&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetParentID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//判断当前粒子是否由初级粒子产生
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Parent was a primary &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;G4VProcess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;creatorProcess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;track&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetCreatorProcess&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4cout&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;creatorProcess&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetProcessName&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;endl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//获取产生当前粒子的物理过程名称
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;G4TouchableHandle&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;theTouchable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;preStepPoint&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetTouchableHandle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;theTouchable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetCopyNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//当前几何体的Copy Number
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theTouchable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetCopyNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//当前几何体母体的Copy Number
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;theTouchable&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&amp;gt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;GetCopyNumber&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;//当前几何体母体的母体的Copy Number，以此类推，前提是该母体是存在的，否则可能抛出异常
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 01 Apr 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/04/01/geant4/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/04/01/geant4/</guid>
+        
+        <category>geant4</category>
+        
+        
+        <category>geant4</category>
+        
+      </item>
+    
+      <item>
+        <title>Markdown备忘</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#markdown&quot; id=&quot;markdown-toc-markdown&quot;&gt;Markdown&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#插入数学公式&quot; id=&quot;markdown-toc-插入数学公式&quot;&gt;插入数学公式&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#picture&quot; id=&quot;markdown-toc-picture&quot;&gt;picture&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;markdown&quot;&gt;Markdown&lt;/h1&gt;
+&lt;h2 id=&quot;插入数学公式&quot;&gt;插入数学公式&lt;/h2&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//using google chart service
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://chart.googleapis.com/chart?cht=tx&amp;amp;ch1=在此插入latex公式&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;style=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;border:none:&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+// using forkosh service
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;img&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://www.forkdosh.com/mathtex.cgi?在此处插入latex公式&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&lt;/span&gt;
+// MathJax
+&lt;span class=&quot;nt&quot;&gt;&amp;lt;srcipt&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;type=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;text/javascript&quot;&lt;/span&gt; &lt;span class=&quot;na&quot;&gt;src=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default&quot;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;picture&quot;&gt;picture&lt;/h2&gt;
+
+&lt;div class=&quot;language-html highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![test](http://)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 23 Mar 2017 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2017/03/23/markdown/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017/03/23/markdown/</guid>
+        
+        <category>markdown</category>
+        
+        <category>备忘</category>
+        
+        
+        <category>备忘</category>
+        
+      </item>
+    
+      <item>
+        <title>马赫曾德干涉显微观测</title>
+        <description>&lt;ul id=&quot;markdown-toc&quot;&gt;
+  &lt;li&gt;&lt;a href=&quot;#实验原理&quot; id=&quot;markdown-toc-实验原理&quot;&gt;实验原理&lt;/a&gt;    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#干涉原理&quot; id=&quot;markdown-toc-干涉原理&quot;&gt;干涉原理&lt;/a&gt;        &lt;ul&gt;
+          &lt;li&gt;&lt;a href=&quot;#模拟倾斜的斜坡&quot; id=&quot;markdown-toc-模拟倾斜的斜坡&quot;&gt;模拟倾斜的斜坡&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#相位解包&quot; id=&quot;markdown-toc-相位解包&quot;&gt;相位解包&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#血细胞仿真模拟&quot; id=&quot;markdown-toc-血细胞仿真模拟&quot;&gt;血细胞仿真模拟&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;#实验结果&quot; id=&quot;markdown-toc-实验结果&quot;&gt;实验结果&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+这是广东省物理实验比赛时候, 从自己找文献到做实验, 实验失败, 找文献, 最后有一个比较可以的结果, 也算可以结题了:)
+
+一开始的目的是我们想测量手机像素点的大小和高度, 用迈克尔逊干涉仪, 但是发现反射率太低了, 根本看不到干涉图样.
+
+不过很好玩的一点是: 当我们用酒精清洗一面反射镜的时候, 看到干涉图样随着酒精蒸发而发生改变, 于是我们就用酒精多擦了几遍玩.
+
+后来找了许多材料测量, 反射率都不是很好. 而且基础物理实验室的仪器已经有点脏了, 后来去了专业的实验室.
+
+改成透射型的马赫曾德干涉, 测量生物样品的光路.
+
+&lt;h2 id=&quot;实验原理&quot;&gt;实验原理&lt;/h2&gt;
+
+实验原理图(样品放中心焦点)
+
+&lt;img src=&quot;../store/干涉/实验原理图.png&quot; alt=&quot;实验原理图&quot; /&gt;
+
+实验中使用两个放大倍率相同的透镜使之共焦,将样品放于焦平面上,令透镜的主轴与光束重合,前一个透镜将光束聚集到生物体的一小块区域上,后一个透镜对聚焦光点处的生物体放大,含放大细胞信息的物光和参考光相干得到干涉条纹。
+
+共焦放大原理图
+
+&lt;img src=&quot;../store/干涉/共焦放大原理图.png&quot; alt=&quot;共焦放大原理图&quot; /&gt;
+
+&lt;h3 id=&quot;干涉原理&quot;&gt;干涉原理&lt;/h3&gt;
+干涉测量是基于光波叠加原理,在干涉场中产生亮暗交替的干涉条纹,通过分析处理干涉条纹来获取被测量的有关信息。当两束光满足频率一致,振动方向相同以及初始相位差恒定的条件,就会发生干涉。干涉场中任一点的合成光强为:
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;I=I_R+I_S+2\sqrt{I_RI_S}cos\frac{2\pi}{\lambda}\Lambda&lt;/script&gt;
+
+其中, &lt;script type=&quot;math/tex&quot;&gt;\Lambda&lt;/script&gt;为两束光到达同一点的光程差, &lt;script type=&quot;math/tex&quot;&gt;I_R&lt;/script&gt;和&lt;script type=&quot;math/tex&quot;&gt;I_S&lt;/script&gt;分别为参考光和物光的光强, &lt;script type=&quot;math/tex&quot;&gt;\lambda&lt;/script&gt;为光波长。
+&lt;h4 id=&quot;模拟倾斜的斜坡&quot;&gt;模拟倾斜的斜坡&lt;/h4&gt;
+利用 matlab 可以很轻松地做到, 一些参数说明
+&lt;ol&gt;
+  &lt;li&gt;波长650nm&lt;/li&gt;
+  &lt;li&gt;表面抛光的反射型光学元件&lt;/li&gt;
+&lt;/ol&gt;
+
+给出相位分布和干涉图样
+
+相位分布
+
+&lt;img src=&quot;../store/干涉/斜坡.png&quot; alt=&quot;相位分布&quot; /&gt;
+
+干涉图样
+
+&lt;img src=&quot;../store/干涉/斜坡gan.png&quot; alt=&quot;干涉图样&quot; /&gt;
+
+&lt;h3 id=&quot;相位解包&quot;&gt;相位解包&lt;/h3&gt;
+待测物光波与参考光波干涉形成的干涉条纹强度分布在宏观或微观上具有正余弦函数分布。从干涉条纹强度分布提取物光波相位信息时,受三角函数周期性及主值区间的限制,所提取的相位信息在数值上总是在&lt;script type=&quot;math/tex&quot;&gt;-\pi&lt;/script&gt;到&lt;script type=&quot;math/tex&quot;&gt;\pi&lt;/script&gt;之间,称之为包裹相位。当待测物光波的实际相位差变化幅值大于&lt;script type=&quot;math/tex&quot;&gt;2\pi&lt;/script&gt;或实际光程差变化大于波长时,所得到的包裹相位分布不是待测物光波真实的相位分布,由此包裹相位不能够得到待测物体的实际特征信息,此时就需要特殊的相位解包技术。
+
+当时由于知识有限, 于是采取一个无脑的办法–条纹中心法
+
+条纹中心法的处理过程:
+
+&lt;ol&gt;
+  &lt;li&gt;预处理,我们利用二值化。&lt;/li&gt;
+  &lt;li&gt;条纹中心法的检测,从理论上来说,检测条纹中心即为沿条纹的法向方向来寻求条纹亮度的极大(小)值点。我们利用 matlab 自带寻峰函数确定亮纹和暗纹的中心点&lt;/li&gt;
+&lt;/ol&gt;
+
+下面就模拟了血细胞的仿真
+&lt;h3 id=&quot;血细胞仿真模拟&quot;&gt;血细胞仿真模拟&lt;/h3&gt;
+红细胞模型及其干涉条纹 单位:&lt;script type=&quot;math/tex&quot;&gt;\mu m&lt;/script&gt;
+
+&lt;img src=&quot;../store/干涉/红细胞模型及其干涉条纹.png&quot; alt=&quot;红细胞模型及其干涉条纹&quot; /&gt;
+
+二值化的结果
+
+&lt;img src=&quot;../store/干涉/二值化.png&quot; alt=&quot;二值化&quot; /&gt;
+
+相位提取的结果
+
+&lt;img src=&quot;../store/干涉/相位提取.png&quot; alt=&quot;相位提取&quot; /&gt;
+
+血细胞实验仿真处理结果(当时没有时间,现在懒, 所以只做了相位还原)
+
+&lt;img src=&quot;../store/干涉/仿真处理结果.png&quot; alt=&quot;仿真处理结果&quot; /&gt;
+
+&lt;h3 id=&quot;实验结果&quot;&gt;实验结果&lt;/h3&gt;
+
+其实不妨说做了很多实验, 拍了许多照片, 能用的还是不多
+
+&lt;img src=&quot;../store/干涉/实验图片.png&quot; alt=&quot;实验图片&quot; /&gt;
+
+matlab 处理的结果
+
+&lt;img src=&quot;../store/干涉/实验结果.png&quot; alt=&quot;实验结果&quot; /&gt;
+</description>
+        <pubDate>Wed, 05 Oct 2016 00:00:00 +0800</pubDate>
+        <link>http://localhost:4000/2016/10/05/%E9%A9%AC%E8%B5%AB%E6%9B%BE%E5%BE%B7%E5%B9%B2%E6%B6%89/</link>
+        <guid isPermaLink="true">http://localhost:4000/2016/10/05/%E9%A9%AC%E8%B5%AB%E6%9B%BE%E5%BE%B7%E5%B9%B2%E6%B6%89/</guid>
+        
+        
+        <category>物理</category>
+        
+      </item>
     
       <item>
         <title>透镜畸变和滤波</title>
@@ -20,6 +408,7 @@
   &lt;li&gt;&lt;a href=&quot;#滤波&quot; id=&quot;markdown-toc-滤波&quot;&gt;滤波&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;&lt;a href=&quot;#mathematica-模拟傅立叶变换&quot; id=&quot;markdown-toc-mathematica-模拟傅立叶变换&quot;&gt;Mathematica 模拟傅立叶变换&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
 这是中山大学基础物理实验 C7 因为当时正在学习 mathematica, 所以拿这个实验练手.
 
 做实验报告的时候, 平行光入射透镜模拟, 点光源成像, 以及计算焦点与离光轴距离的函数都是直接复制其他人的代码,简单地进行 debug.
@@ -27,7 +416,7 @@
 在这里不介绍了 会给相应图片展示
 直接给我实验报告的链接
 
-&lt;a href=&quot;../store/c7wan.pdf&quot;&gt;基于空间光调制器的光学实验&lt;/a&gt;
+&lt;a href=&quot;../store/透镜畸变和滤波/c7wan.pdf&quot;&gt;基于空间光调制器的光学实验&lt;/a&gt;
 
 &lt;h2 id=&quot;模拟展示&quot;&gt;模拟展示&lt;/h2&gt;
 平行光成像
@@ -110,10 +499,6 @@ picFourier=Fourier[picdata*PadRight[,Most[picdata//Dimensions],{ {1,-1},{-1,1} }
         <pubDate>Wed, 04 May 2016 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/2016/05/04/%E9%80%8F%E9%95%9C%E7%95%B8%E5%8F%98%E5%92%8C%E6%BB%A4%E6%B3%A2/</link>
         <guid isPermaLink="true">http://localhost:4000/2016/05/04/%E9%80%8F%E9%95%9C%E7%95%B8%E5%8F%98%E5%92%8C%E6%BB%A4%E6%B3%A2/</guid>
-        
-        <category>透镜</category>
-        
-        <category>滤波</category>
         
         <category>mathematica</category>
         

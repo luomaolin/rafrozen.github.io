@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>透镜畸变和滤波</title>
-    <meta name="description" content="  模拟展示  光学系统的畸变          mathematica 模拟原理及结果        滤波  Mathematica 模拟傅立叶变换这是中山大学基础物理实验 C7 因为当时正在学习 mathematica, 所以拿这个实验练手.做实验报告的时候, 平行光入射透镜模拟, 点光源成像, 以及计算焦点...">
+    <title>马赫曾德干涉显微观测</title>
+    <meta name="description" content="  实验原理          干涉原理                  模拟倾斜的斜坡                    相位解包      血细胞仿真模拟      实验结果      这是广东省物理实验比赛时候, 从自己找文献到做实验, 实验失败, 找文献, 最后有一个比较可以的结果, 也算可以结题了...">
 
     <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
     <link rel="stylesheet" href="/css/main.css ">
-    <link rel="canonical" href="http://localhost:4000/2016/05/04/%E9%80%8F%E9%95%9C%E7%95%B8%E5%8F%98%E5%92%8C%E6%BB%A4%E6%B3%A2/">
+    <link rel="canonical" href="http://localhost:4000/2016/10/05/%E9%A9%AC%E8%B5%AB%E6%9B%BE%E5%BE%B7%E5%B9%B2%E6%B6%89/">
     <link rel="alternate" type="application/rss+xml" title="loyxin" href="http://localhost:4000/feed.xml ">
 
 
@@ -130,11 +130,11 @@
 
         <div class="page clearfix" post>
     <div class="left">
-        <h1>透镜畸变和滤波</h1>
+        <h1>马赫曾德干涉显微观测</h1>
         <div class="label">
 
             <div class="label-card">
-                <i class="fa fa-calendar"></i>2016-05-04
+                <i class="fa fa-calendar"></i>2016-10-05
             </div>
 
             <div class="label-card">
@@ -171,9 +171,6 @@
   <i class="fa fa-tags"></i>
   
     
-        <!--a href="/tag/#mathematica" title="Tag: mathematica" rel="tag">mathematica</a-->
-        <a href="/tag/#mathematica" title="Tag: mathematica" rel="tag">mathematica</a>
-    
   
 
 </span>
@@ -184,101 +181,102 @@
         <hr>
         <article itemscope itemtype="http://schema.org/BlogPosting">
         <ul id="markdown-toc">
-  <li><a href="#模拟展示" id="markdown-toc-模拟展示">模拟展示</a></li>
-  <li><a href="#光学系统的畸变" id="markdown-toc-光学系统的畸变">光学系统的畸变</a>    <ul>
-      <li><a href="#mathematica-模拟原理及结果" id="markdown-toc-mathematica-模拟原理及结果">mathematica 模拟原理及结果</a></li>
+  <li><a href="#实验原理" id="markdown-toc-实验原理">实验原理</a>    <ul>
+      <li><a href="#干涉原理" id="markdown-toc-干涉原理">干涉原理</a>        <ul>
+          <li><a href="#模拟倾斜的斜坡" id="markdown-toc-模拟倾斜的斜坡">模拟倾斜的斜坡</a></li>
+        </ul>
+      </li>
+      <li><a href="#相位解包" id="markdown-toc-相位解包">相位解包</a></li>
+      <li><a href="#血细胞仿真模拟" id="markdown-toc-血细胞仿真模拟">血细胞仿真模拟</a></li>
+      <li><a href="#实验结果" id="markdown-toc-实验结果">实验结果</a></li>
     </ul>
   </li>
-  <li><a href="#滤波" id="markdown-toc-滤波">滤波</a></li>
-  <li><a href="#mathematica-模拟傅立叶变换" id="markdown-toc-mathematica-模拟傅立叶变换">Mathematica 模拟傅立叶变换</a></li>
 </ul>
 
-<p>这是中山大学基础物理实验 C7 因为当时正在学习 mathematica, 所以拿这个实验练手.</p>
+<p>这是广东省物理实验比赛时候, 从自己找文献到做实验, 实验失败, 找文献, 最后有一个比较可以的结果, 也算可以结题了:)</p>
 
-<p>做实验报告的时候, 平行光入射透镜模拟, 点光源成像, 以及计算焦点与离光轴距离的函数都是直接复制其他人的代码,简单地进行 debug.</p>
+<p>一开始的目的是我们想测量手机像素点的大小和高度, 用迈克尔逊干涉仪, 但是发现反射率太低了, 根本看不到干涉图样.</p>
 
-<p>在这里不介绍了 会给相应图片展示
-直接给我实验报告的链接</p>
+<p>不过很好玩的一点是: 当我们用酒精清洗一面反射镜的时候, 看到干涉图样随着酒精蒸发而发生改变, 于是我们就用酒精多擦了几遍玩.</p>
 
-<p><a href="../store/透镜畸变和滤波/c7wan.pdf">基于空间光调制器的光学实验</a></p>
+<p>后来找了许多材料测量, 反射率都不是很好. 而且基础物理实验室的仪器已经有点脏了, 后来去了专业的实验室.</p>
 
-<h2 id="模拟展示">模拟展示</h2>
-<p>平行光成像</p>
+<p>改成透射型的马赫曾德干涉, 测量生物样品的光路.</p>
 
-<p><img src="../store/透镜畸变和滤波/平行光.png" alt="平行光成像" /></p>
+<h2 id="实验原理">实验原理</h2>
 
-<p>点光源成像</p>
+<p>实验原理图(样品放中心焦点)</p>
 
-<p><img src="../store/透镜畸变和滤波/点光源.png" alt="点光源成像" /></p>
+<p><img src="../store/干涉/实验原理图.png" alt="实验原理图" /></p>
 
-<p>焦距随 <script type="math/tex">y_0</script>的变化曲线(<script type="math/tex">y_0</script>为光线离透镜光轴的距离)</p>
+<p>实验中使用两个放大倍率相同的透镜使之共焦,将样品放于焦平面上,令透镜的主轴与光束重合,前一个透镜将光束聚集到生物体的一小块区域上,后一个透镜对聚焦光点处的生物体放大,含放大细胞信息的物光和参考光相干得到干涉条纹。</p>
 
-<p><img src="../store/透镜畸变和滤波/焦距.png" alt="焦距随的变化曲线" /></p>
+<p>共焦放大原理图</p>
 
-<h2 id="光学系统的畸变">光学系统的畸变</h2>
+<p><img src="../store/干涉/共焦放大原理图.png" alt="共焦放大原理图" /></p>
 
-<p>畸变分两种:桶形畸变和枕形畸变</p>
+<h3 id="干涉原理">干涉原理</h3>
+<p>干涉测量是基于光波叠加原理,在干涉场中产生亮暗交替的干涉条纹,通过分析处理干涉条纹来获取被测量的有关信息。当两束光满足频率一致,振动方向相同以及初始相位差恒定的条件,就会发生干涉。干涉场中任一点的合成光强为:</p>
 
-<p><img src="../store/透镜畸变和滤波/畸形类型.png" alt="畸变" /></p>
+<script type="math/tex; mode=display">I=I_R+I_S+2\sqrt{I_RI_S}cos\frac{2\pi}{\lambda}\Lambda</script>
 
-<h3 id="mathematica-模拟原理及结果">mathematica 模拟原理及结果</h3>
+<p>其中, <script type="math/tex">\Lambda</script>为两束光到达同一点的光程差, <script type="math/tex">I_R</script>和<script type="math/tex">I_S</script>分别为参考光和物光的光强, <script type="math/tex">\lambda</script>为光波长。</p>
+<h4 id="模拟倾斜的斜坡">模拟倾斜的斜坡</h4>
+<p>利用 matlab 可以很轻松地做到, 一些参数说明</p>
+<ol>
+  <li>波长650nm</li>
+  <li>表面抛光的反射型光学元件</li>
+</ol>
 
-<p>参考文献为:一种基于畸变等效曲面的图像畸变校正_韩广良</p>
+<p>给出相位分布和干涉图样</p>
 
-<p>假设光学系统不产生任何畸变,而是成像面发生了弯曲,即成像面不再是一个平面 P’,而是形成了某种曲面,我们称这个曲面为畸变等效曲面。入射的光线成像在这个畸变等效曲面上,如果这个曲面产生畸变的结果与原来完全相同,那么这个畸变等效曲面就模拟了这种畸变产生的原因。为了方便分析,并结合畸变的特点,这里取畸变等效曲面为球面</p>
+<p>相位分布</p>
 
-<p>简单地来说,对图形进行坐标变换,从直角坐标系变成有单位长度随着离原点的距离而变化.</p>
-<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="n">d</span><span class="o">=</span><span class="mi">500</span><span class="p">;</span><span class="n">x0</span><span class="o">=</span><span class="mi">512</span><span class="p">;</span><span class="n">y0</span><span class="o">=</span><span class="mi">384</span><span class="p">;</span><span class="n">c</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span>
-<span class="n">f</span><span class="p">[</span><span class="n">x_</span><span class="p">,</span><span class="n">y_</span><span class="p">]</span><span class="o">:=</span><span class="p">{</span><span class="n">c</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="n">d</span><span class="o">/</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">y0</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">d</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mf">0.5</span><span class="o">+</span><span class="n">x0</span><span class="p">,</span><span class="n">c</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">y0</span><span class="p">)</span><span class="n">d</span><span class="o">/</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">x0</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="n">y0</span><span class="p">)</span><span class="o">^</span><span class="mi">2</span><span class="o">+</span><span class="n">d</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span><span class="o">^</span><span class="mf">0.5</span><span class="o">+</span><span class="n">y0</span><span class="p">}</span>
-<span class="n">ImageTransformation</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">f</span><span class="err">@@#</span><span class="o">&amp;</span><span class="p">,</span><span class="n">DataRange</span><span class="o">-&gt;</span><span class="n">Full</span><span class="p">]</span>
-</code></pre>
-</div>
-<p>其中 c 为放大率 x0,y0 是图像中心像素点的坐标 d 相当于畸变等效像面的半径</p>
+<p><img src="../store/干涉/斜坡.png" alt="相位分布" /></p>
 
-<p>变换的 i 图像为 6 乘 8 的棋盘格</p>
+<p>干涉图样</p>
 
-<p><img src="../store/透镜畸变和滤波/棋盘格.png" alt="6 乘 8 的棋盘格" /></p>
+<p><img src="../store/干涉/斜坡gan.png" alt="干涉图样" /></p>
 
-<p>模拟出来的畸变:</p>
+<h3 id="相位解包">相位解包</h3>
+<p>待测物光波与参考光波干涉形成的干涉条纹强度分布在宏观或微观上具有正余弦函数分布。从干涉条纹强度分布提取物光波相位信息时,受三角函数周期性及主值区间的限制,所提取的相位信息在数值上总是在<script type="math/tex">-\pi</script>到<script type="math/tex">\pi</script>之间,称之为包裹相位。当待测物光波的实际相位差变化幅值大于<script type="math/tex">2\pi</script>或实际光程差变化大于波长时,所得到的包裹相位分布不是待测物光波真实的相位分布,由此包裹相位不能够得到待测物体的实际特征信息,此时就需要特殊的相位解包技术。</p>
 
-<p><img src="../store/透镜畸变和滤波/枕形畸变.png" alt="枕形畸变" /></p>
+<p>当时由于知识有限, 于是采取一个无脑的办法–条纹中心法</p>
 
-<h2 id="滤波">滤波</h2>
-<p>只要调用滤波函数就可以了</p>
-<div class="language-cpp highlighter-rouge"><pre class="highlight"><code><span class="n">Manipulate</span><span class="p">[</span><span class="n">LowpassFilter</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">c</span><span class="p">],{</span><span class="n">c</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">2</span><span class="p">}]</span>
-</code></pre>
-</div>
-<p>当 c=0.03 近似认为是只让零级光点通过</p>
+<p>条纹中心法的处理过程:</p>
 
-<p><img src="../store/透镜畸变和滤波/零级光点.png" alt="零级光点" /></p>
+<ol>
+  <li>预处理,我们利用二值化。</li>
+  <li>条纹中心法的检测,从理论上来说,检测条纹中心即为沿条纹的法向方向来寻求条纹亮度的极大(小)值点。我们利用 matlab 自带寻峰函数确定亮纹和暗纹的中心点</li>
+</ol>
 
-<p>当 c=0.1,近似认为是只让零级光点和一级光点通过</p>
+<p>下面就模拟了血细胞的仿真</p>
+<h3 id="血细胞仿真模拟">血细胞仿真模拟</h3>
+<p>红细胞模型及其干涉条纹 单位:<script type="math/tex">\mu m</script></p>
 
-<p><img src="../store/透镜畸变和滤波/零级和一级光点.png" alt="零级和一级光点" /></p>
+<p><img src="../store/干涉/红细胞模型及其干涉条纹.png" alt="红细胞模型及其干涉条纹" /></p>
 
-<p>当 c=0.3 时,近似认为让零级光点和一级光点和二级光点通过</p>
+<p>二值化的结果</p>
 
-<p><img src="../store/透镜畸变和滤波/零级和一二级光点.png" alt="零级和一二级光点" /></p>
+<p><img src="../store/干涉/二值化.png" alt="二值化" /></p>
 
-<h2 id="mathematica-模拟傅立叶变换">Mathematica 模拟傅立叶变换</h2>
-<p>用 mathematica 求出透射光栅的傅立叶变换以及实际采集的 128T 一维光栅和理论图像的 32T 一维光栅的傅立叶变换(其中 32T 一维光栅由于是连续的图像,所以生成的傅立叶变换是在 x 轴上面的一系列的亮点,亮点比较小,所以截图主要是截相应的区域)</p>
+<p>相位提取的结果</p>
 
-<p>code:</p>
-<div class="highlighter-rouge"><pre class="highlight"><code>picdata=i//ImageData;
-picFourier=Fourier[picdata*PadRight[,Most[picdata//Dimensions],{ {1,-1},{-1,1} }]]//Abs//Image
-</code></pre>
-</div>
-<p>空间调制器使用的 32T 条纹的傅立叶变换图像:</p>
+<p><img src="../store/干涉/相位提取.png" alt="相位提取" /></p>
 
-<p><img src="../store/透镜畸变和滤波/32T 条纹的傅立叶变换图像.png" alt="32T 条纹的傅立叶变换图像" /></p>
+<p>血细胞实验仿真处理结果(当时没有时间,现在懒, 所以只做了相位还原)</p>
 
-<p>透射光栅傅立叶图像</p>
+<p><img src="../store/干涉/仿真处理结果.png" alt="仿真处理结果" /></p>
 
-<p><img src="../store/透镜畸变和滤波/透射光栅傅立叶图像.png" alt="透射光栅傅立叶图像" /></p>
+<h3 id="实验结果">实验结果</h3>
 
-<p>128T 实验观测的图像傅立叶变换</p>
+<p>其实不妨说做了很多实验, 拍了许多照片, 能用的还是不多</p>
 
-<p><img src="../store/透镜畸变和滤波/128T 实验观测的图像傅立叶变换.png" alt="128T 实验观测的图像傅立叶变换" /></p>
+<p><img src="../store/干涉/实验图片.png" alt="实验图片" /></p>
+
+<p>matlab 处理的结果</p>
+
+<p><img src="../store/干涉/实验结果.png" alt="实验结果" /></p>
 
         </article>
         <hr>
@@ -288,33 +286,25 @@ picFourier=Fourier[picdata*PadRight[,Most[picdata//Dimensions],{ {1,-1},{-1,1} }
             
             
                 
-                    
-                
             
-                
-                    
                 
             
         
             
             
                 
-                    
+            
+        
+            
+            
+                
+            
                 
             
         
             
             
                 
-                    
-                
-            
-                
-                    
-                
-            
-        
-            
             
         
         
@@ -322,11 +312,13 @@ picFourier=Fourier[picdata*PadRight[,Most[picdata//Dimensions],{ {1,-1},{-1,1} }
         <div class="post-recent">
     <div class="pre">
         
+        <p><strong>上一篇</strong> <a href="/2016/05/04/%E9%80%8F%E9%95%9C%E7%95%B8%E5%8F%98%E5%92%8C%E6%BB%A4%E6%B3%A2/">透镜畸变和滤波</a></p>
+        
     </div>
     <div class="nex">
 
         
-        <p><strong>下一篇</strong> <a href="/2016/10/05/%E9%A9%AC%E8%B5%AB%E6%9B%BE%E5%BE%B7%E5%B9%B2%E6%B6%89/">马赫曾德干涉显微观测</a></p>
+        <p><strong>下一篇</strong> <a href="/2017/03/23/markdown/">Markdown备忘</a></p>
         
     </div>
 </div>

@@ -6,15 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>About</title>
-    <meta name="description" content="">
+    <title>ssh反向代理</title>
+    <meta name="description" content="  使用ssh反向代理进入内网          机器环境      软件环境要求      method      ssh 用到的参数      注意      使用autossh，防止掉线      使用ssh反向代理进入内网机器环境  A：内网服务器，IP 1.1.1.1，能正常链接外网  B：外网服务器，...">
 
     <link rel="shortcut icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="icon" href="/favicon.ico?" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://at.alicdn.com/t/font_8v3czwksspqlg14i.css">
     <link rel="stylesheet" href="/css/main.css ">
-    <link rel="canonical" href="http://localhost:4000/about/">
+    <link rel="canonical" href="http://localhost:4000/2017/04/10/ssh%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/">
     <link rel="alternate" type="application/rss+xml" title="loyxin" href="http://localhost:4000/feed.xml ">
 
 
@@ -107,8 +107,8 @@
                     
                     <li>
                         
-                        <a class="active" href="/about/">
-                            
+                        <a href="/about/">
+                        
                             <i class="fa fa-heart"></i>About
                         </a>
                     </li>
@@ -130,36 +130,179 @@
 
         <div class="page clearfix" post>
     <div class="left">
-        <h1>About</h1>
+        <h1>ssh反向代理</h1>
+        <div class="label">
+
+            <div class="label-card">
+                <i class="fa fa-calendar"></i>2017-04-10
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+                
+            </div>
+
+            <div class="label-card">
+            
+
+
+<!-- <span class="point">•</span> -->
+<span class="categories">
+  <i class="fa fa-th-list"></i>
+  
+    
+        <a href="/category/#linux" title="Category: linux" rel="category">linux</a>
+    
+  
+
+  <!-- <span class="point">•</span> -->
+</span>
+
+
+            </div>
+
+            <div class="label-card">
+            
+<!-- <span class="point">•</span> -->
+<span class="pageTag">
+  <i class="fa fa-tags"></i>
+  
+    
+        <!--a href="/tag/#ssh" title="Tag: ssh" rel="tag">ssh</a-->
+        <a href="/tag/#ssh" title="Tag: ssh" rel="tag">ssh</a>&nbsp;
+    
+        <!--a href="/tag/#%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86" title="Tag: 反向代理" rel="tag">反向代理</a-->
+        <a href="/tag/#反向代理" title="Tag: 反向代理" rel="tag">反向代理</a>
+    
+  
+
+</span>
+
+            </div>
+
+        </div>
         <hr>
+        <article itemscope itemtype="http://schema.org/BlogPosting">
         <ul id="markdown-toc">
-  <li><a href="#about-me" id="markdown-toc-about-me">about me</a></li>
-  <li><a href="#联系我" id="markdown-toc-联系我">联系我</a></li>
-  <li><a href="#友情链接" id="markdown-toc-友情链接">友情链接</a></li>
-  <li><a href="#comments" id="markdown-toc-comments">Comments</a></li>
+  <li><a href="#使用ssh反向代理进入内网" id="markdown-toc-使用ssh反向代理进入内网">使用ssh反向代理进入内网</a>    <ul>
+      <li><a href="#机器环境" id="markdown-toc-机器环境">机器环境</a></li>
+      <li><a href="#软件环境要求" id="markdown-toc-软件环境要求">软件环境要求</a></li>
+      <li><a href="#method" id="markdown-toc-method">method</a></li>
+      <li><a href="#ssh-用到的参数" id="markdown-toc-ssh-用到的参数">ssh 用到的参数</a></li>
+      <li><a href="#注意" id="markdown-toc-注意">注意</a></li>
+      <li><a href="#使用autossh防止掉线" id="markdown-toc-使用autossh防止掉线">使用autossh，防止掉线</a></li>
+    </ul>
+  </li>
 </ul>
 
-<h2 id="about-me">about me</h2>
+<h1 id="使用ssh反向代理进入内网">使用ssh反向代理进入内网</h1>
+<h2 id="机器环境">机器环境</h2>
+<ol>
+  <li>A：内网服务器，IP 1.1.1.1，能正常链接外网</li>
+  <li>B：外网服务器，IP 9.9.9.9，拥有公网IP，不能访问A</li>
+  <li>C：终端，个人电脑，能正常访问互联网，能访问B，不能访问A
+    <h2 id="软件环境要求">软件环境要求</h2>
+    <p>A和B均需要开启ssh</p>
+    <h2 id="method">method</h2>
+    <p>登陆<strong>A机器</strong>执行以下命令</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code>ssh -fCNR &lt;port_B1&gt;:Alocalhost:&lt;port_A&gt; usr_in_b@9.9.9.9
+</code></pre>
+    </div>
+    <p><code class="highlighter-rouge">&lt;port_B1&gt;</code>是B与A反向链接的端口，可以使用大于1024的端口</p>
+  </li>
+</ol>
 
-<p>目前就读于中山大学物理学院光信息科学与工程技术专业</p>
+<p>运行完此命令后，可以登陆B执行命令<code class="highlighter-rouge">ss -nat </code>可以在<code class="highlighter-rouge">Local Address:Port</code>看到<code class="highlighter-rouge">127.0.0.1:&lt;port_B1&gt;</code>，说明在B机器上已经开始A与B已经建立了反向代理。
+其实现在登陆B主机就可以使用<code class="highlighter-rouge">ssh user_In_A@127.0.0.1 -p &lt;port_B1&gt;</code>登陆A主机了，但是我们想直接登陆A主机，所以我们还需要做一次本地转发，方法如下: 登陆B机器执行以下命令</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh -fCNL *:&lt;part_B2&gt;:127.0.0.1:&lt;port_B1&gt; user_in_b@Blocalhost
+</code></pre>
+</div>
+<h2 id="ssh-用到的参数">ssh 用到的参数</h2>
+<div class="highlighter-rouge"><pre class="highlight"><code>-f 后台运行
 
-<ul>
-  <li>2014-2018 中山大学</li>
-  <li>2014 毕业于珠海斗门一中</li>
-</ul>
+-C 允许压缩数据
 
-<h2 id="联系我">联系我</h2>
+-N 不执行任何命令
 
-<ul>
-  <li>GitHub：<a href="https://github.com/rafrozen">rafrozen</a></li>
-  <li>email：luox46@mail2.sysu.edu.cn or rafrozenluoxin@gmail.com</li>
-</ul>
+-R 将端口绑定到远程服务器，反向代理
 
-<h2 id="友情链接">友情链接</h2>
+-L 将端口绑定到本地客户端，正向代理
+</code></pre>
+</div>
+<h2 id="注意">注意</h2>
+<p>把内网主机暴露在公网会对整个内网造成安全威胁，注意使用高强度密码和强安全策略。</p>
 
-<p><a href="http://luoml.xyz">彩虹霓墙</a></p>
+<h2 id="使用autossh防止掉线">使用autossh，防止掉线</h2>
+<p>直接使用ssh转发经常会因为网络原因造成掉线，导致无法远程登陆，这是就需要使用autossh来确保A到B这条反向连接隧道不会掉线</p>
+<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install -y autossh
+autossh -M 5000 -fNR &lt;port_b1&gt;:localhost:&lt;port_A&gt; usr_in_b@9.9.9.9
 
-<h2 id="comments">Comments</h2>
+-M 在远程主机开一个监听端口，探测是否掉线，掉线后重试链接
+</code></pre>
+</div>
+
+        </article>
+        <hr>
+
+        
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+                
+                    
+                
+                    
+                
+            
+        
+            
+            
+        
+            
+            
+                
+                    
+                
+                    
+                
+            
+        
+        
+
+        <div class="post-recent">
+    <div class="pre">
+        
+        <p><strong>上一篇</strong> <a href="/2017/04/01/geant4/">Geant4 常用代码</a></p>
+        
+    </div>
+    <div class="nex">
+
+        
+    </div>
+</div>
+
+
+        <h2 id="comments">Comments</h2>
+        
+
 
 <div id="disqus_thread"></div>
 <script>
@@ -177,8 +320,10 @@
         (d.head || d.body).appendChild(s);
     })();
 </script>
-
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+
 
 
     </div>
@@ -192,6 +337,8 @@
                     Content
                 </div>
                 <ul id="content-side" class="content-ul">
+                    <li><a href="#similar_posts">Similar Posts</a></li>
+                    <li><a href="#comments">Comments</a></li>
                 </ul>
             </div>
             <!-- 其他div框放到这里 -->
@@ -199,6 +346,17 @@
         </div>
     </div>
 </div>
+<script>
+/**
+ * target _blank
+ */
+(function() {
+    var aTags = document.querySelectorAll('article a:not([id])')
+    for (var i = 0; i < aTags.length; i++) {
+        aTags[i].setAttribute('target', '_blank')
+    }
+}());
+</script>
 <script src="/js/pageContent.js " charset="utf-8"></script>
 
 
