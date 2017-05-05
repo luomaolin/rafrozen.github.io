@@ -205,15 +205,19 @@
   <li>B：外网服务器，IP 9.9.9.9，拥有公网IP，不能访问A</li>
   <li>C：终端，个人电脑，能正常访问互联网，能访问B，不能访问A
     <h2 id="软件环境要求">软件环境要求</h2>
-    <p>A和B均需要开启ssh</p>
-    <h2 id="method">method</h2>
-    <p>登陆<strong>A机器</strong>执行以下命令</p>
-    <div class="highlighter-rouge"><pre class="highlight"><code>ssh -fCNR &lt;port_B1&gt;:Alocalhost:&lt;port_A&gt; usr_in_b@9.9.9.9
-</code></pre>
-    </div>
-    <p><code class="highlighter-rouge">&lt;port_B1&gt;</code>是B与A反向链接的端口，可以使用大于1024的端口</p>
   </li>
 </ol>
+
+<p>A和B均需要开启ssh</p>
+
+<h2 id="method">method</h2>
+<p>登陆<strong>A机器</strong>执行以下命令</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>ssh -fCNR &lt;port_B1&gt;:Alocalhost:&lt;port_A&gt; usr_in_b@9.9.9.9
+</code></pre>
+</div>
+
+<p><code class="highlighter-rouge">&lt;port_B1&gt;</code>是B与A反向链接的端口，可以使用大于1024的端口</p>
 
 <p>运行完此命令后，可以登陆B执行命令<code class="highlighter-rouge">ss -nat </code>可以在<code class="highlighter-rouge">Local Address:Port</code>看到<code class="highlighter-rouge">127.0.0.1:&lt;port_B1&gt;</code>，说明在B机器上已经开始A与B已经建立了反向代理。
 其实现在登陆B主机就可以使用<code class="highlighter-rouge">ssh user_In_A@127.0.0.1 -p &lt;port_B1&gt;</code>登陆A主机了，但是我们想直接登陆A主机，所以我们还需要做一次本地转发，方法如下: 登陆B机器执行以下命令</p>

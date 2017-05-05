@@ -5,8 +5,8 @@
     <description></description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Fri, 05 May 2017 21:22:00 +0800</pubDate>
-    <lastBuildDate>Fri, 05 May 2017 21:22:00 +0800</lastBuildDate>
+    <pubDate>Fri, 05 May 2017 21:36:53 +0800</pubDate>
+    <lastBuildDate>Fri, 05 May 2017 21:36:53 +0800</lastBuildDate>
     <generator>Jekyll v3.4.3</generator>
     
       <item>
@@ -30,15 +30,19 @@
   &lt;li&gt;B：外网服务器，IP 9.9.9.9，拥有公网IP，不能访问A&lt;/li&gt;
   &lt;li&gt;C：终端，个人电脑，能正常访问互联网，能访问B，不能访问A
     &lt;h2 id=&quot;软件环境要求&quot;&gt;软件环境要求&lt;/h2&gt;
-    A和B均需要开启ssh
-    &lt;h2 id=&quot;method&quot;&gt;method&lt;/h2&gt;
-    登陆&lt;strong&gt;A机器&lt;/strong&gt;执行以下命令
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh -fCNR &amp;lt;port_B1&amp;gt;:Alocalhost:&amp;lt;port_A&amp;gt; usr_in_b@9.9.9.9
-&lt;/code&gt;&lt;/pre&gt;
-    &lt;/div&gt;
-    &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;port_B1&amp;gt;&lt;/code&gt;是B与A反向链接的端口，可以使用大于1024的端口
   &lt;/li&gt;
 &lt;/ol&gt;
+
+A和B均需要开启ssh
+
+&lt;h2 id=&quot;method&quot;&gt;method&lt;/h2&gt;
+登陆&lt;strong&gt;A机器&lt;/strong&gt;执行以下命令
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ssh -fCNR &amp;lt;port_B1&amp;gt;:Alocalhost:&amp;lt;port_A&amp;gt; usr_in_b@9.9.9.9
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;port_B1&amp;gt;&lt;/code&gt;是B与A反向链接的端口，可以使用大于1024的端口
 
 运行完此命令后，可以登陆B执行命令&lt;code class=&quot;highlighter-rouge&quot;&gt;ss -nat &lt;/code&gt;可以在&lt;code class=&quot;highlighter-rouge&quot;&gt;Local Address:Port&lt;/code&gt;看到&lt;code class=&quot;highlighter-rouge&quot;&gt;127.0.0.1:&amp;lt;port_B1&amp;gt;&lt;/code&gt;，说明在B机器上已经开始A与B已经建立了反向代理。
 其实现在登陆B主机就可以使用&lt;code class=&quot;highlighter-rouge&quot;&gt;ssh user_In_A@127.0.0.1 -p &amp;lt;port_B1&amp;gt;&lt;/code&gt;登陆A主机了，但是我们想直接登陆A主机，所以我们还需要做一次本地转发，方法如下: 登陆B机器执行以下命令
@@ -317,13 +321,13 @@ main函数所在文件加入如下头文件：
 
 实验原理图(样品放中心焦点)
 
-&lt;img src=&quot;../store/干涉/实验原理图.png&quot; alt=&quot;实验原理图&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/实验原理图.png&quot; alt=&quot;实验原理图&quot; /&gt;
 
 实验中使用两个放大倍率相同的透镜使之共焦,将样品放于焦平面上,令透镜的主轴与光束重合,前一个透镜将光束聚集到生物体的一小块区域上,后一个透镜对聚焦光点处的生物体放大,含放大细胞信息的物光和参考光相干得到干涉条纹。
 
 共焦放大原理图
 
-&lt;img src=&quot;../store/干涉/共焦放大原理图.png&quot; alt=&quot;共焦放大原理图&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/共焦放大原理图.png&quot; alt=&quot;共焦放大原理图&quot; /&gt;
 
 &lt;h3 id=&quot;干涉原理&quot;&gt;干涉原理&lt;/h3&gt;
 干涉测量是基于光波叠加原理,在干涉场中产生亮暗交替的干涉条纹,通过分析处理干涉条纹来获取被测量的有关信息。当两束光满足频率一致,振动方向相同以及初始相位差恒定的条件,就会发生干涉。干涉场中任一点的合成光强为:
@@ -342,11 +346,11 @@ main函数所在文件加入如下头文件：
 
 相位分布
 
-&lt;img src=&quot;../store/干涉/斜坡.png&quot; alt=&quot;相位分布&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/斜坡.png&quot; alt=&quot;相位分布&quot; /&gt;
 
 干涉图样
 
-&lt;img src=&quot;../store/干涉/斜坡gan.png&quot; alt=&quot;干涉图样&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/斜坡gan.png&quot; alt=&quot;干涉图样&quot; /&gt;
 
 &lt;h3 id=&quot;相位解包&quot;&gt;相位解包&lt;/h3&gt;
 待测物光波与参考光波干涉形成的干涉条纹强度分布在宏观或微观上具有正余弦函数分布。从干涉条纹强度分布提取物光波相位信息时,受三角函数周期性及主值区间的限制,所提取的相位信息在数值上总是在&lt;script type=&quot;math/tex&quot;&gt;-\pi&lt;/script&gt;到&lt;script type=&quot;math/tex&quot;&gt;\pi&lt;/script&gt;之间,称之为包裹相位。当待测物光波的实际相位差变化幅值大于&lt;script type=&quot;math/tex&quot;&gt;2\pi&lt;/script&gt;或实际光程差变化大于波长时,所得到的包裹相位分布不是待测物光波真实的相位分布,由此包裹相位不能够得到待测物体的实际特征信息,此时就需要特殊的相位解包技术。
@@ -364,29 +368,29 @@ main函数所在文件加入如下头文件：
 &lt;h3 id=&quot;血细胞仿真模拟&quot;&gt;血细胞仿真模拟&lt;/h3&gt;
 红细胞模型及其干涉条纹 单位:&lt;script type=&quot;math/tex&quot;&gt;\mu m&lt;/script&gt;
 
-&lt;img src=&quot;../store/干涉/红细胞模型及其干涉条纹.png&quot; alt=&quot;红细胞模型及其干涉条纹&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/红细胞模型及其干涉条纹.png&quot; alt=&quot;红细胞模型及其干涉条纹&quot; /&gt;
 
 二值化的结果
 
-&lt;img src=&quot;../store/干涉/二值化.png&quot; alt=&quot;二值化&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/二值化.png&quot; alt=&quot;二值化&quot; /&gt;
 
 相位提取的结果
 
-&lt;img src=&quot;../store/干涉/相位提取.png&quot; alt=&quot;相位提取&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/相位提取.png&quot; alt=&quot;相位提取&quot; /&gt;
 
 血细胞实验仿真处理结果(当时没有时间,现在懒, 所以只做了相位还原)
 
-&lt;img src=&quot;../store/干涉/仿真处理结果.png&quot; alt=&quot;仿真处理结果&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/仿真处理结果.png&quot; alt=&quot;仿真处理结果&quot; /&gt;
 
 &lt;h3 id=&quot;实验结果&quot;&gt;实验结果&lt;/h3&gt;
 
 其实不妨说做了很多实验, 拍了许多照片, 能用的还是不多
 
-&lt;img src=&quot;../store/干涉/实验图片.png&quot; alt=&quot;实验图片&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/实验图片.png&quot; alt=&quot;实验图片&quot; /&gt;
 
 matlab 处理的结果
 
-&lt;img src=&quot;../store/干涉/实验结果.png&quot; alt=&quot;实验结果&quot; /&gt;
+&lt;img src=&quot;../../../../store/干涉/实验结果.png&quot; alt=&quot;实验结果&quot; /&gt;
 </description>
         <pubDate>Wed, 05 Oct 2016 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/2016/10/05/%E9%A9%AC%E8%B5%AB%E6%9B%BE%E5%BE%B7%E5%B9%B2%E6%B6%89/</link>
@@ -416,26 +420,26 @@ matlab 处理的结果
 在这里不介绍了 会给相应图片展示
 直接给我实验报告的链接
 
-&lt;a href=&quot;../store/透镜畸变和滤波/c7wan.pdf&quot;&gt;基于空间光调制器的光学实验&lt;/a&gt;
+&lt;a href=&quot;../../../../store/透镜畸变和滤波/c7wan.pdf&quot;&gt;基于空间光调制器的光学实验&lt;/a&gt;
 
 &lt;h2 id=&quot;模拟展示&quot;&gt;模拟展示&lt;/h2&gt;
 平行光成像
 
-&lt;img src=&quot;../store/透镜畸变和滤波/平行光.png&quot; alt=&quot;平行光成像&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/平行光.png&quot; alt=&quot;平行光成像&quot; /&gt;
 
 点光源成像
 
-&lt;img src=&quot;../store/透镜畸变和滤波/点光源.png&quot; alt=&quot;点光源成像&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/点光源.png&quot; alt=&quot;点光源成像&quot; /&gt;
 
 焦距随 &lt;script type=&quot;math/tex&quot;&gt;y_0&lt;/script&gt;的变化曲线(&lt;script type=&quot;math/tex&quot;&gt;y_0&lt;/script&gt;为光线离透镜光轴的距离)
 
-&lt;img src=&quot;../store/透镜畸变和滤波/焦距.png&quot; alt=&quot;焦距随的变化曲线&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/焦距.png&quot; alt=&quot;焦距随的变化曲线&quot; /&gt;
 
 &lt;h2 id=&quot;光学系统的畸变&quot;&gt;光学系统的畸变&lt;/h2&gt;
 
 畸变分两种:桶形畸变和枕形畸变
 
-&lt;img src=&quot;../store/透镜畸变和滤波/畸形类型.png&quot; alt=&quot;畸变&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/畸形类型.png&quot; alt=&quot;畸变&quot; /&gt;
 
 &lt;h3 id=&quot;mathematica-模拟原理及结果&quot;&gt;mathematica 模拟原理及结果&lt;/h3&gt;
 
@@ -453,11 +457,11 @@ matlab 处理的结果
 
 变换的 i 图像为 6 乘 8 的棋盘格
 
-&lt;img src=&quot;../store/透镜畸变和滤波/棋盘格.png&quot; alt=&quot;6 乘 8 的棋盘格&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/棋盘格.png&quot; alt=&quot;6 乘 8 的棋盘格&quot; /&gt;
 
 模拟出来的畸变:
 
-&lt;img src=&quot;../store/透镜畸变和滤波/枕形畸变.png&quot; alt=&quot;枕形畸变&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/枕形畸变.png&quot; alt=&quot;枕形畸变&quot; /&gt;
 
 &lt;h2 id=&quot;滤波&quot;&gt;滤波&lt;/h2&gt;
 只要调用滤波函数就可以了
@@ -466,15 +470,15 @@ matlab 处理的结果
 &lt;/div&gt;
 当 c=0.03 近似认为是只让零级光点通过
 
-&lt;img src=&quot;../store/透镜畸变和滤波/零级光点.png&quot; alt=&quot;零级光点&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/零级光点.png&quot; alt=&quot;零级光点&quot; /&gt;
 
 当 c=0.1,近似认为是只让零级光点和一级光点通过
 
-&lt;img src=&quot;../store/透镜畸变和滤波/零级和一级光点.png&quot; alt=&quot;零级和一级光点&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/零级和一级光点.png&quot; alt=&quot;零级和一级光点&quot; /&gt;
 
 当 c=0.3 时,近似认为让零级光点和一级光点和二级光点通过
 
-&lt;img src=&quot;../store/透镜畸变和滤波/零级和一二级光点.png&quot; alt=&quot;零级和一二级光点&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/零级和一二级光点.png&quot; alt=&quot;零级和一二级光点&quot; /&gt;
 
 &lt;h2 id=&quot;mathematica-模拟傅立叶变换&quot;&gt;Mathematica 模拟傅立叶变换&lt;/h2&gt;
 用 mathematica 求出透射光栅的傅立叶变换以及实际采集的 128T 一维光栅和理论图像的 32T 一维光栅的傅立叶变换(其中 32T 一维光栅由于是连续的图像,所以生成的傅立叶变换是在 x 轴上面的一系列的亮点,亮点比较小,所以截图主要是截相应的区域)
@@ -486,15 +490,15 @@ picFourier=Fourier[picdata*PadRight[,Most[picdata//Dimensions],{ {1,-1},{-1,1} }
 &lt;/div&gt;
 空间调制器使用的 32T 条纹的傅立叶变换图像:
 
-&lt;img src=&quot;../store/透镜畸变和滤波/32T 条纹的傅立叶变换图像.png&quot; alt=&quot;32T 条纹的傅立叶变换图像&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/32T 条纹的傅立叶变换图像.png&quot; alt=&quot;32T 条纹的傅立叶变换图像&quot; /&gt;
 
 透射光栅傅立叶图像
 
-&lt;img src=&quot;../store/透镜畸变和滤波/透射光栅傅立叶图像.png&quot; alt=&quot;透射光栅傅立叶图像&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/透射光栅傅立叶图像.png&quot; alt=&quot;透射光栅傅立叶图像&quot; /&gt;
 
 128T 实验观测的图像傅立叶变换
 
-&lt;img src=&quot;../store/透镜畸变和滤波/128T 实验观测的图像傅立叶变换.png&quot; alt=&quot;128T 实验观测的图像傅立叶变换&quot; /&gt;
+&lt;img src=&quot;../../../../store/透镜畸变和滤波/128T 实验观测的图像傅立叶变换.png&quot; alt=&quot;128T 实验观测的图像傅立叶变换&quot; /&gt;
 </description>
         <pubDate>Wed, 04 May 2016 00:00:00 +0800</pubDate>
         <link>http://localhost:4000/2016/05/04/%E9%80%8F%E9%95%9C%E7%95%B8%E5%8F%98%E5%92%8C%E6%BB%A4%E6%B3%A2/</link>
